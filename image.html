@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  
+  <title>관측대상</title>
+
+</head>
+
+<body>
+  <div id="wrap">
+    
+    <!-- home -->
+    <section id="home">
+      <div class="container">
+        <h1>대전시민천문대<br>관측대상</h1>
+      </div>
+    </section>
+
+    <hr>
+    
+    <!-- header -->
+<header>
+  <div class="container">
+    <!-- 로고 이미지 링크 -->
+    <a href="#" class="logo">
+      <img src="logo.png" alt="로고" style="max-width: 100px; height: auto;" />
+    </a>
+    
+    <nav role="navigation">
+      <ul class="gnb" id="test">
+        <li class="active"><a href="#">HOME</a></li>
+        <li><a href="https://djstar.kr/" target="_blank">천문대홈페이지</a></li>
+        <li><a href="#">관측대상</a></li>
+        <li><a href="#">PORTFOLIO</a></li>
+        <li><a href="#">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- 이미지 보기 링크들 -->
+  <div class="image-links">
+    <a href="#" onclick="showImage('image1')">이미지 1 보기</a>
+    <a href="#" onclick="showImage('image2')">이미지 2 보기</a>
+    <a href="#" onclick="showImage('image3')">이미지 3 보기</a>
+  </div>
+
+  <!-- 이미지들 -->
+  <div id="image1" style="display: none; text-align: center; padding: 20px;">
+    <button onclick="hideImage('image1')">닫기</button>
+    <img src="image1.jpg" alt="이미지 1" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
+  </div>
+
+  <div id="image2" style="display: none; text-align: center; padding: 20px;">
+    <button onclick="hideImage('image2')">닫기</button>
+    <img src="image2.jpg" alt="이미지 2" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
+  </div>
+
+  <div id="image3" style="display: none; text-align: center; padding: 20px;">
+    <button onclick="hideImage('image3')">닫기</button>
+    <img src="image3.jpg" alt="이미지 3" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
+  </div>
+</header>
+
+<script>
+// 이미지를 보여주는 함수
+function showImage(imageId) {
+  document.getElementById(imageId).style.display = 'block';
+}
+
+// 이미지를 숨기는 함수
+function hideImage(imageId) {
+  document.getElementById(imageId).style.display = 'none';
+}
+</script>
+
+
+    <hr>
+    
+    <!-- contact -->
+    <section id="contact" class="wow fadeIn" data-wow-delay="100ms">
+      <h2>Contact</h2>
+      <div class="contact_img"></div>
+
+      <div class="container">
+        <p>
+          저는 물질적인 욕심보다는 <strong>꿈을 추구</strong>하며,<br>
+          다른 사람들이 자신의 꿈을 찾을 수 있도록 돕고자 합니다.<br>
+          우주의 먼지처럼 <strong>자유로운 삶</strong>을 살아가며,<br>
+          끊임없이 성장하고 발전하는 여정을 이어가고 있습니다.
+        </p>
+        
+        <p>
+          shaula@mensakorea.org<br>
+        </p>
+  
+        <div class="link clearfix">
+          <a href="https://github.com/shaula0" class="git" target="_blank">
+            <img src="images/git.svg" />
+          </a>
+          <a href="https://www.instagram.com/jayjaej" class="instargram" target="_blank">
+            <img src="images/instagram.svg" />
+          </a>
+          <a href="https://shaula0.tistory.com/" class="instargram" target="_blank">
+            <img src="images/tistory.svg" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- footer -->
+    <footer>
+      <address>
+        <a href="https://shaula0.github.io/" style="text-decoration: underline;">도움을 주신 분: 정재영(shaula@mensakorea.org)<br>
+        </a>&copy; 2025 Jeong-Jaeyoung. All Rights Reserved.
+      </address>
+    </footer>
+  </div>
+</body>
+
+</html>
