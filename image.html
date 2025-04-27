@@ -5,36 +5,37 @@
   <meta charset="UTF-8">
   <title>ObservableImages</title>
   <style>
-    .image-viewer {
-      position: fixed; /* 화면 고정 */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
-      display: none; /* 숨김 처리 */
-      justify-content: center; /* 가로 중앙 정렬 */
-      align-items: center; /* 세로 중앙 정렬 */
-      flex-direction: column; /* 버튼과 이미지 세로 배치 */
-      z-index: 1000; /* 다른 요소 위에 표시 */
-    }
-    .image-viewer button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 20px;
-      background-color: rgba(255, 255, 255, 0.5);
-      color: black;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      z-index: 1001; /* 이미지 뷰어 배경보다 높게 */
-    }
-    .image-viewer img {
-      max-width: 90%;
-      max-height: 80%;
-      border: 2px solid #ccc;
-    }
+  .image-viewer {
+    position: fixed; /* 화면 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
+    display: none; /* 숨김 처리 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    flex-direction: column; /* 버튼과 이미지 세로 배치 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+  }
+  .image-viewer button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1001; /* 이미지 뷰어 배경보다 높게 */
+  }
+  .image-viewer img {
+    max-width: 100%; /* 최대 너비를 100%로 변경 */
+    max-height: 100%; /* 최대 높이를 100%로 변경 */
+    object-fit: contain; /* 이미지 비율 유지하며 꽉 채우기 */
+    border: none; /* 테두리 제거 (선택 사항) */
+  }
   </style>
 </head>
 
