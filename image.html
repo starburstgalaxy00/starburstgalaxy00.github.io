@@ -3,23 +3,50 @@
 
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  
   <title>ObservableImages</title>
-
+  <style>
+    .image-viewer {
+      position: fixed; /* 화면 고정 */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
+      display: none; /* 숨김 처리 */
+      justify-content: center; /* 가로 중앙 정렬 */
+      align-items: center; /* 세로 중앙 정렬 */
+      flex-direction: column; /* 버튼과 이미지 세로 배치 */
+      z-index: 1000; /* 다른 요소 위에 표시 */
+    }
+    .image-viewer button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: black;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 1001; /* 이미지 뷰어 배경보다 높게 */
+    }
+    .image-viewer img {
+      max-width: 90%;
+      max-height: 80%;
+      border: 2px solid #ccc;
+    }
+  </style>
 </head>
 
 <body>
   <div id="wrap">
-    
-    <!-- home -->
+
     <section id="home">
       <div class="container">
         <h1>Images</h1>
       </div>
     </section>
-    
-    <!-- contact -->
+
     <section id="contact" class="wow fadeIn" data-wow-delay="100ms">
       <div></div>
 
@@ -32,9 +59,8 @@
     </section>
 
     <hr>
-    
-    <!-- header -->
-<header>
+
+    <header>
       <div class="container">
         <a href="#" class="logo"></a>
         <nav role="navigation">
@@ -42,46 +68,20 @@
         </nav>
       </div>
 
-  <!-- 이미지 보기 링크들 -->
-  <div class="image-links">
-    <a href="images/arcturus.jpg" onclick="showImage('arcturus')">아크투루스</a>
-    <a href="#" onclick="showImage('image2')">이미지 2 보기</a>
-    <a href="#" onclick="showImage('image3')">이미지 3 보기</a>
-  </div>
+      <div class="image-links">
+        <a href="#" onclick="showImage('images/arcturus.jpg', '아크투루스')">아크투루스</a>
+        <a href="#" onclick="showImage('images/image2.jpg', '이미지 2')">이미지 2 보기</a>
+        <a href="#" onclick="showImage('images/image3.jpg', '이미지 3')">이미지 3 보기</a>
+      </div>
+    </header>
 
-  <!-- 이미지들 -->
-  <div id="arcturus" style="display: none; text-align: center; padding: 20px;">
-    <button onclick="hideImage('arcturus')">닫기</button>
-    <img src="arcturus.jpg" alt="이미지 1" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
-  </div>
-
-  <div id="image2" style="display: none; text-align: center; padding: 20px;">
-    <button onclick="hideImage('image2')">닫기</button>
-    <img src="image2.jpg" alt="이미지 2" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
-  </div>
-
-  <div id="image3" style="display: none; text-align: center; padding: 20px;">
-    <button onclick="hideImage('image3')">닫기</button>
-    <img src="image3.jpg" alt="이미지 3" style="max-width: 100%; height: auto; border: 2px solid #ccc;" />
-  </div>
-</header>
-
-<script>
-// 이미지를 보여주는 함수
-function showImage(imageId) {
-  document.getElementById(imageId).style.display = 'block';
-}
-
-// 이미지를 숨기는 함수
-function hideImage(imageId) {
-  document.getElementById(imageId).style.display = 'none';
-}
-</script>
-
+    <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
+      <button onclick="closeImageViewer(event)">닫기</button>
+      <img id="displayedImage" src="" alt="">
+    </div>
 
     <hr>
 
-    <!-- footer -->
     <footer>
       <address>
         <a href="https://shaula0.github.io/" style="text-decoration: underline;">도움을 주신 분: 정재영(shaula@mensakorea.org)<br>
@@ -89,6 +89,26 @@ function hideImage(imageId) {
       </address>
     </footer>
   </div>
+
+  <script>
+    const imageViewer = document.getElementById('imageViewer');
+    const displayedImage = document.getElementById('displayedImage');
+
+    function showImage(imageSrc, altText) {
+      displayedImage.src = imageSrc;
+      displayedImage.alt = altText;
+      imageViewer.style.display = 'flex'; // flex로 변경하여 중앙 정렬
+    }
+
+    function closeImageViewer(event) {
+      if (event.target === imageViewer || event.target.tagName === 'BUTTON') {
+        imageViewer.style.display = 'none';
+        displayedImage.src = '';
+        displayedImage.alt = '';
+      }
+    }
+  </script>
+
 </body>
 
 </html>
