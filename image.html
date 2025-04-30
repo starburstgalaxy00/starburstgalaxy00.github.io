@@ -1,168 +1,44 @@
-<!DOCTYPE HTML>
-<html lang="ko">
+<header>
+  <div class="container">
+    <a href="#" class="logo"></a>
+    <nav role="navigation">
+      <li><a href="index.html">뒤로가기</a></li>
+    </nav>
+  </div>
 
-<head>
-  <meta charset="UTF-8">
-  <title>ObservableImages</title>
-  <style>
-    .image-viewer {
-      position: fixed; /* 화면 고정 */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
-      display: none; /* 숨김 처리 */
-      justify-content: center; /* 가로 중앙 정렬 */
-      align-items: center; /* 세로 중앙 정렬 */
-      flex-direction: column; /* 버튼과 이미지 세로 배치 */
-      z-index: 1000; /* 다른 요소 위에 표시 */
-    }
+  <section>
+    <h2>관측 여부</h2>
+    <div class="image-links">
+      <a href="#" onclick="showImage('images/info(able_to_observe).jpg', '관측가능')">관측 가능</a>
+      <a href="#" onclick="showImage('images/info(unable_to_observe).jpg', '관측불가능')">관측 불가능</a>
+    </div>
+  </section>
 
-    .image-viewer button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 20px;
-      background-color: rgba(255, 255, 255, 0.5);
-      color: black;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      z-index: 1001; /* 이미지 뷰어 배경보다 높게 */
-      transition: transform 0.3s ease-in-out; /* 회전 애니메이션 효과 */
-    }
-
-    .image-viewer button.rotated {
-      transform: rotate(-90deg); /* 반시계 방향으로 90도 회전 */
-    }
-
-    .image-viewer img {
-      max-width: 100%; /* 최대 너비를 100%로 변경 */
-      max-height: 100%; /* 최대 높이를 100%로 변경 */
-      object-fit: contain; /* 이미지 비율 유지하며 꽉 채우기 */
-      border: none; /* 테두리 제거 (선택 사항) */
-    }
-  </style>
-</head>
-
-<body>
-  <div id="wrap">
-
-    <section id="home">
-      <div class="container">
-        <h1>Images</h1>
-      </div>
-    </section>
-
-    <section id="contact" class="wow fadeIn" data-wow-delay="100ms">
-      <div></div>
-
-      <div>
-        <p>
-          필요한 이미지가 있을 경우 말씀해주세요.<br>
-          starburstgalaxy00@gmail.com
-        </p>
-      </div>
-    </section>
-
-    <hr>
-
-    <header>
-      <div class="container">
-        <a href="#" class="logo"></a>
-        <nav role="navigation">
-          <li><a href="index.html">뒤로가기</a></li>
-        </nav>
-      </div>
-      <p>
-        <h2>관측여부</h2>
-      </p>
-      
-      <div class="image-links">
-        <a href="#" onclick="showImage('images/info(able_to_observe).jpg', '관측가능')">관측가능</a>
-        <a href="#" onclick="showImage('images/info(unable_to_observe).jpg', '관측불가능')">관측불가능</a>
-      </div>
-
-      <p>
-        <h2>관측대상</h2>
-      </p>
-      <p>
-        <h4>태양계</h4>
-      </p>
+  <section>
+    <h2>관측 대상</h2>
+    <section>
+      <h3>태양계</h3>
       <div class="image-links">
         <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
         <a href="#" onclick="showImage('images/jupiter.jpg', '목성')">목성</a>
         <a href="#" onclick="showImage('images/moon_crescent.jpg', '초승달')">초승달</a>
         <a href="#" onclick="showImage('images/moon_gibbous.jpg', '볼록달')">볼록달</a>
       </div>
-      <p>
-        <h4>별</h4>
-      </p>
+    </section>
+
+    <section>
+      <h3>별</h3>
       <div class="image-links">
         <a href="#" onclick="showImage('images/arcturus.jpg', '아크투루스')">아크투루스</a>
         <a href="#" onclick="showImage('images/algieba.jpg', '알기에바')">알기에바</a>
       </div>
-      <p>
-        <h4>딥스카이</h4>
-      </p>
+    </section>
+
+    <section>
+      <h3>딥스카이</h3>
       <div class="image-links">
         <a href="#" onclick="showImage('images/praesepe.jpg', '프레세페')">프레세페</a>
       </div>
-    </header>
-
-    <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
-      <button id="closeButton" onclick="closeImageViewer(event)">닫기</button>
-      <img id="displayedImage" src="" alt="">
-    </div>
-
-    <hr>
-
-    <footer>
-      <address>
-        <a href="https://shaula0.github.io/" style="text-decoration: underline;">도움을 주신 분: 정재영(shaula@mensakorea.org)<br>
-        </a>&copy; 2025 HongjuKwon. All Rights Reserved.
-      </address>
-    </footer>
-  </div>
-
-  <script>
-    const imageViewer = document.getElementById('imageViewer');
-    const displayedImage = document.getElementById('displayedImage');
-    const closeButton = document.getElementById('closeButton');
-    let isRotated = false;
-
-    function showImage(imageSrc, altText) {
-      displayedImage.src = imageSrc;
-      displayedImage.alt = altText;
-      imageViewer.style.display = 'flex'; // flex로 변경하여 중앙 정렬
-      // 이미지가 열릴 때 버튼 회전 초기화
-      closeButton.classList.remove('rotated');
-      isRotated = false;
-    }
-
-    function closeImageViewer(event) {
-      if (event.target === imageViewer || event.target.tagName === 'BUTTON') {
-        imageViewer.style.display = 'none';
-        displayedImage.src = '';
-        displayedImage.alt = '';
-        // 닫기 버튼을 다시 원래대로 회전 (선택 사항)
-        closeButton.classList.remove('rotated');
-        isRotated = false;
-      }
-    }
-
-    // 닫기 버튼 클릭 시 회전 토글
-    closeButton.addEventListener('click', function() {
-      isRotated = !isRotated;
-      if (isRotated) {
-        closeButton.classList.add('rotated');
-      } else {
-        closeButton.classList.remove('rotated');
-      }
-    });
-  </script>
-
-</body>
-
-</html>
+    </section>
+  </section>
+</header>
