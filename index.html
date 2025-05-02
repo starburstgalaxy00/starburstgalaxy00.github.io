@@ -6,7 +6,15 @@
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   
   <title>DaoDataPage</title>
-
+  <style>
+    body {
+      transform: rotate(-90deg);
+      transform-origin: top left;
+      width: 100vh; /* 회전 후의 보이는 영역 확보를 위해 viewport height로 설정 */
+      height: 100vw; /* 회전 후의 보이는 영역 확보를 위해 viewport width로 설정 */
+      position: absolute; /* 회전 및 크기 조정 후 레이아웃 틀어짐 방지 */
+    }
+  </style>
 </head>
 
 <body>
