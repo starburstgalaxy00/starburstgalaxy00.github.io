@@ -1,4 +1,44 @@
 <!DOCTYPE HTML>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: black;
+        color: white;
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vh; /* 주의! 회전할 거라서 vh, vw 바꿔야 함 */
+        height: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rotate {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+  
 <html lang="ko">
 
 <head>
@@ -6,19 +46,12 @@
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   
   <title>DaoDataPage</title>
-  <style>
-    body {
-      transform: rotate(-90deg);
-      transform-origin: top left;
-      width: 100vh; /* 회전 후의 보이는 영역 확보를 위해 viewport height로 설정 */
-      height: 100vw; /* 회전 후의 보이는 영역 확보를 위해 viewport width로 설정 */
-      position: absolute; /* 회전 및 크기 조정 후 레이아웃 틀어짐 방지 */
-    }
-  </style>
+ 
 </head>
 
 <body>
-  <div id="wrap">
+  <div class="container">
+    <div class="rotate">
     
     <!-- home -->
     <section id="home">
@@ -99,6 +132,7 @@
         </a>&copy; 2025 HongjuKwon. All Rights Reserved.
       </address>
     </footer>
+   </div>
   </div>
 </body>
 
