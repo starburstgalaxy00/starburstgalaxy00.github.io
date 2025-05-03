@@ -118,6 +118,8 @@
     var f3 = "3층 관측실";
     var f3_time1 = ":25 ~ ";
     var f3_time2 = ":45";
+    var dinner = "저녁시간";
+    var dinner_time = "저녁시간입니다~";
     var end = "프로그램이 종료되었습니다.";
     var end_sub = "다음에 또 만나요.";
 
@@ -131,6 +133,8 @@
     var en_f3 = "3rd floor observatory";
     var en_f3_time1 = ":25 ~ ";
     var en_f3_time2 = ":45";
+    var en_dinner = "Dinner";
+    var en_dinner_time = "It's Dinner Time";
     var en_end = "The program has ended.";
     var en_end_sub = "See you again next time!"
 
@@ -193,6 +197,16 @@
                 current_pg_en = en_f1;
                 current_pg_en_sub =  en_f1_time1 + "6" + en_f1_time2;
             }
+        }
+
+        // 5시 45분 이상, 6시 58분 미만 = 저녁시간(7시)
+        else if ((hour == 5 && min >= 0) || (hour == 6 && min < 50)) {
+            // 저녁 6~7시 저녁시간
+                current_pg = dinner;
+                current_pg_sub = dinner_time;
+
+                current_pg_en = en_dinner;
+                current_pg_en_sub = en_dinner_time;
         }
         // 9시 45분 이상 = 프로그램 X
         else if ((am_pm == "오후" && hour == 9 && min >= 45) || (am_pm == "오후" && hour > 9))
