@@ -169,8 +169,8 @@
             current_pg_en_sub = "2" + en_f3_time1 + "2" + en_f3_time2;
         }
         // 5시 45분 이상, 6시 58분 미만 = 투영실(7시)
-        else if ((hour == 5 && min >= 45) || (hour == 6 && min < 58)) {
-            // 화요일 7시일 경우 시낭송
+        else if ((hour == 6 && min >= 45) || (hour == 7 && min < 58)) {
+            // 화요일 8시일 경우 시낭송
             if (week == "화") {
                 current_pg = f1_poetry_recitation;
                 current_pg_sub = "6" + f1_time_concert;
@@ -178,7 +178,7 @@
                 current_pg_en = en_f1_poetry_recitation;
                 current_pg_en_sub = en_f1_time1_concert + "6" + en_f1_time2_concert;
             }
-            // 토요일 7시일 경우 음악회
+            // 토요일 8시일 경우 음악회
             else if (week == "토") {
                 current_pg = f1_music_concert;
                 current_pg_sub = "6" + f1_time_concert;
