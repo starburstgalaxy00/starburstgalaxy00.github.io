@@ -110,6 +110,9 @@
     var current_pg_en = "";
     var current_pg_en_sub = "";
 
+    var open_time = 14;
+    var close_time = 22;
+
     var f1 = "1층 투영관";
     var f1_poetry_recitation = "1층 시낭송<br>(예약자 우선)";
     var f1_music_concert = "1층 음악회<br>(예약자 우선)";
@@ -179,7 +182,7 @@
                 current_pg_en_sub = en_dinner_time;
         }
         // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
-        else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
+        else if ((hour >= open_time || hour < close_time) && (min < 45 || min > 58)) {
             current_pg = f3;
             current_pg_sub = hour + f3_time1 + hour + f3_time2;
 
