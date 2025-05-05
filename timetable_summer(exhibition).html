@@ -120,6 +120,8 @@
     var f3_time2 = ":45";
     var dinner = "저녁시간";
     var dinner_time = ":00 ~ ";
+    var end = "프로그램 준비중입니다.";
+    var end_sub = "조금만 기다려주세요.";
     var end = "프로그램이 종료되었습니다.";
     var end_sub = "다음에 또 만나요.";
 
@@ -135,6 +137,8 @@
     var en_f3_time2 = ":45";
     var en_dinner = "It's dinner time~";
     var en_dinner_time = ":00 ~ ";
+    var en_start = "The program isn't prepared yet";
+    var en_start_sub = "Please wait a moment!"
     var en_end = "The program has ended.";
     var en_end_sub = "See you again next time!"
 
@@ -211,11 +215,21 @@
 
         // 그외, 운영시간 X 
         else {
+            if (hour == 9) {
             current_pg = end;
             current_pg_sub = end_sub;
 
             current_pg_en = en_end;
             current_pg_en_sub = en_end_sub;
+            }
+
+            else {
+            current_pg = start;
+            current_pg_sub = start_sub;
+
+            current_pg_en = en_start;
+            current_pg_en_sub = en_start_sub;
+            }
         }
 
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
