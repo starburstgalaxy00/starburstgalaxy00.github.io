@@ -162,7 +162,7 @@
 
 
         // 5시 45분 이상, 6시 50분 미만 = 저녁시간
-        if ((hour == 5 && min >= 45) || (hour == 6 && min < 50)) {
+        if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
                 current_pg_sub = dinner_time;
@@ -171,7 +171,7 @@
                 current_pg_en_sub = en_dinner_time;
         }
         // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
-        else if ((hour >= 2 || hour < 10) && (min < 45 || min > 58)) {
+        else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
             current_pg = f3;
             current_pg_sub = "2" + f3_time1 + "2" + f3_time2;
 
@@ -179,7 +179,7 @@
             current_pg_en_sub = "2" + en_f3_time1 + "2" + en_f3_time2;
         }
         // 투영관 45분에서 58분 사이
-        else if ((hour >= 2 || hour < 10) && (min >= 45 || min < 58)) {
+        else if ((hour >= 14 || hour < 21) && (min >= 45 || min < 58)) {
             // 화요일일 경우 시낭송
             if (week == "화") {
                 current_pg = f1_poetry_recitation;
@@ -204,40 +204,14 @@
                 current_pg_en_sub =  en_f1_time1 + "6" + en_f1_time2;
             }
         }
-           
-        // 9시 45분 이상 = 프로그램 X
-        else if ((am_pm == "오후" && hour == 9 && min >= 45) || (am_pm == "오후" && hour > 9))
-        {
+
+        // 그외, 운영시간 X 
+        else {
             current_pg = end;
             current_pg_sub = end_sub;
 
             current_pg_en = en_end;
             current_pg_en_sub = en_end_sub;
-        }
-        else {
-            // 매시간 45분 이상, 58분 미만 = 투영실
-            if (min >= 45 && min < 58) {
-                current_pg = f1;
-                current_pg_sub = hour + f1_time;
-
-                current_pg_en = en_f1;
-                current_pg_en_sub = en_f1_time1 + hour + en_f1_time2;
-            }
-            // 매시간 58분 이상, 00분 미만 = 관측실 
-            else if (min >= 58) {
-                current_pg = f3;
-                current_pg_sub = (hour+1) + f3_time1 + (hour+1) + f3_time2;
-    
-                current_pg_en = en_f3;
-                current_pg_en_sub = (hour+1) + en_f3_time1 + (hour+1) + en_f3_time2;
-            }
-            else {
-                current_pg = f3;
-                current_pg_sub = hour + f3_time1 + hour + f3_time2;
-    
-                current_pg_en = en_f3;
-                current_pg_en_sub = hour + en_f3_time1 + hour + en_f3_time2;
-            }
         }
 
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
