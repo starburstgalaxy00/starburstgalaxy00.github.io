@@ -156,13 +156,13 @@
         var second_arrow_display = "block";
 
         // 오전, 오후 구분
-        if (hour < 13) {
-            var am_pm = "오전";
-        }
-        else {
-            var am_pm = "오후";
-            hour = hour - 12;
-        }
+        //if (hour < 13) {
+        //    var am_pm = "오전";
+        //}
+        //else {
+        //    var am_pm = "오후";
+        //    hour = hour - 12;
+        //}
 
 
         // 5시 45분 이상, 6시 50분 미만 = 저녁시간
@@ -219,7 +219,7 @@
         }
 
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
-        document.getElementById("time").innerHTML = am_pm + " " + hour + ":" + min + ":" + sec;
+        document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
 
         document.getElementById("current_pg").innerHTML = current_pg;
         document.getElementById("current_pg_sub").innerHTML = current_pg_sub;
