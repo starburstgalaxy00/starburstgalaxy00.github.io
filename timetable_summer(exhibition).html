@@ -118,6 +118,8 @@
     var f3 = "3층 관측실";
     var f3_time1 = ":25 ~ ";
     var f3_time2 = ":45";
+    var dinner = "저녁시간";
+    var dinner_time = ":00 ~ ";
     var end = "프로그램이 종료되었습니다.";
     var end_sub = "다음에 또 만나요.";
 
@@ -131,6 +133,8 @@
     var en_f3 = "3rd floor observatory";
     var en_f3_time1 = ":25 ~ ";
     var en_f3_time2 = ":45";
+    var en_dinner = "It's dinner time~";
+    var en_dinner_time = ":00 ~ ";
     var en_end = "The program has ended.";
     var en_end_sub = "See you again next time!"
 
@@ -152,51 +156,17 @@
         var second_arrow_display = "block";
 
         // 오전, 오후 구분
-        if (hour < 13) {
-            var am_pm = "오전";
-        }
-        else {
-            var am_pm = "오후";
-            hour = hour - 12;
-        }
+        //if (hour < 13) {
+        //    var am_pm = "오전";
+        //}
+        //else {
+        //    var am_pm = "오후";
+        //    hour = hour - 12;
+        //}
 
-        // 2시 45분 미만 = 관측실(2시 25분)
-        if (am_pm == "오전" || am_pm == "오후" && hour < 2 || hour == 2 && min < 45) {
-            current_pg = f3;
-            current_pg_sub = "2" + f3_time1 + "2" + f3_time2;
 
-            current_pg_en = en_f3;
-            current_pg_en_sub = "2" + en_f3_time1 + "2" + en_f3_time2;
-        }
-        // 5시 45분 이상, 6시 58분 미만 = 투영실(7시)
-        else if ((hour == 7 && min >= 45) || (hour == 7 && min < 58)) {
-            // 화요일 7시일 경우 시낭송
-            if (week == "화") {
-                current_pg = f1_poetry_recitation;
-                current_pg_sub = "6" + f1_time_concert;
-
-                current_pg_en = en_f1_poetry_recitation;
-                current_pg_en_sub = en_f1_time1_concert + "6" + en_f1_time2_concert;
-            }
-            // 토요일 7시일 경우 음악회
-            else if (week == "토") {
-                current_pg = f1_music_concert;
-                current_pg_sub = "6" + f1_time_concert;
-
-                current_pg_en = en_f1_music_concert;
-                current_pg_en_sub = en_f1_time1_concert + "6" + en_f1_time2_concert;
-            }
-            else {
-                current_pg = f1;
-                current_pg_sub = "6" + f1_time; 
-    
-                current_pg_en = en_f1;
-                current_pg_en_sub =  en_f1_time1 + "6" + en_f1_time2;
-            }
-        }
-
-        // 5시 45분 이상, 6시 50분 미만 = 저녁시간(7시)
-        else if ((hour == 6 && min >= 0) || (hour == 6 && min < 50)) {
+        // 5시 45분 이상, 6시 50분 미만 = 저녁시간
+        if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
                 current_pg_sub = dinner_time;
@@ -204,44 +174,52 @@
                 current_pg_en = en_dinner;
                 current_pg_en_sub = en_dinner_time;
         }
-           
-        // 9시 45분 이상 = 프로그램 X
-        else if ((am_pm == "오후" && hour == 9 && min >= 45) || (am_pm == "오후" && hour > 9))
-        {
+        // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
+        else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
+            current_pg = f3;
+            current_pg_sub = hour + f3_time1 + hour + f3_time2;
+
+            current_pg_en = en_f3;
+            current_pg_en_sub = hour + en_f3_time1 + hour + en_f3_time2;
+        }
+        // 투영관 45분에서 58분 사이
+        else if ((hour >= 14 || hour < 21) && (min >= 45 || min < 58)) {
+            // 화요일일 경우 시낭송
+            if (week == "화") {
+                current_pg = f1_poetry_recitation;
+                current_pg_sub = hour + f1_time_concert;
+
+                current_pg_en = en_f1_poetry_recitation;
+                current_pg_en_sub = en_f1_time1_concert + hour + en_f1_time2_concert;
+            }
+            // 토요일일 경우 음악회
+            else if (week == "토") {
+                current_pg = f1_music_concert;
+                current_pg_sub = hour + f1_time_concert;
+
+                current_pg_en = en_f1_music_concert;
+                current_pg_en_sub = en_f1_time1_concert + hour + en_f1_time2_concert;
+            }
+            else {
+                current_pg = f1;
+                current_pg_sub = hour + f1_time; 
+    
+                current_pg_en = en_f1;
+                current_pg_en_sub =  en_f1_time1 + hour + en_f1_time2;
+            }
+        }
+
+        // 그외, 운영시간 X 
+        else {
             current_pg = end;
             current_pg_sub = end_sub;
 
             current_pg_en = en_end;
             current_pg_en_sub = en_end_sub;
         }
-        else {
-            // 매시간 45분 이상, 58분 미만 = 투영실
-            if (min >= 45 && min < 58) {
-                current_pg = f1;
-                current_pg_sub = hour + f1_time;
-
-                current_pg_en = en_f1;
-                current_pg_en_sub = en_f1_time1 + hour + en_f1_time2;
-            }
-            // 매시간 58분 이상, 00분 미만 = 관측실 
-            else if (min >= 58) {
-                current_pg = f3;
-                current_pg_sub = (hour+1) + f3_time1 + (hour+1) + f3_time2;
-    
-                current_pg_en = en_f3;
-                current_pg_en_sub = (hour+1) + en_f3_time1 + (hour+1) + en_f3_time2;
-            }
-            else {
-                current_pg = f3;
-                current_pg_sub = hour + f3_time1 + hour + f3_time2;
-    
-                current_pg_en = en_f3;
-                current_pg_en_sub = hour + en_f3_time1 + hour + en_f3_time2;
-            }
-        }
 
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
-        document.getElementById("time").innerHTML = am_pm + " " + hour + ":" + min + ":" + sec;
+        document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
 
         document.getElementById("current_pg").innerHTML = current_pg;
         document.getElementById("current_pg_sub").innerHTML = current_pg_sub;
