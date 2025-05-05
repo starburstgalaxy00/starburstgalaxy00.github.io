@@ -160,17 +160,27 @@
             hour = hour - 12;
         }
 
-        // 2시 45분 미만 = 관측실(2시 25분)
-        if (am_pm == "오전" || am_pm == "오후" && hour < 2 || hour == 2 && min < 45) {
+
+        // 5시 45분 이상, 6시 50분 미만 = 저녁시간
+        if ((hour == 5 && min >= 45) || (hour == 6 && min < 50)) {
+            // 저녁 6~7시 저녁시간
+                current_pg = dinner;
+                current_pg_sub = dinner_time;
+
+                current_pg_en = en_dinner;
+                current_pg_en_sub = en_dinner_time;
+        }
+        // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
+        else if ((hour >= 2 || hour < 10) && (min < 45 || min > 58)) {
             current_pg = f3;
             current_pg_sub = "2" + f3_time1 + "2" + f3_time2;
 
             current_pg_en = en_f3;
             current_pg_en_sub = "2" + en_f3_time1 + "2" + en_f3_time2;
         }
-        // 5시 45분 이상, 6시 58분 미만 = 투영실(7시)
-        else if ((hour == 7 && min >= 45) || (hour == 7 && min < 58)) {
-            // 화요일 7시일 경우 시낭송
+        // 투영관 45분에서 58분 사이
+        else if ((hour >= 2 || hour < 10) && (min >= 45 || min < 58)) {
+            // 화요일일 경우 시낭송
             if (week == "화") {
                 current_pg = f1_poetry_recitation;
                 current_pg_sub = "6" + f1_time_concert;
@@ -178,7 +188,7 @@
                 current_pg_en = en_f1_poetry_recitation;
                 current_pg_en_sub = en_f1_time1_concert + "6" + en_f1_time2_concert;
             }
-            // 토요일 7시일 경우 음악회
+            // 토요일일 경우 음악회
             else if (week == "토") {
                 current_pg = f1_music_concert;
                 current_pg_sub = "6" + f1_time_concert;
@@ -194,16 +204,6 @@
                 current_pg_en_sub =  en_f1_time1 + "6" + en_f1_time2;
             }
         }
-
-        // 5시 45분 이상, 6시 50분 미만 = 저녁시간(7시)
-        else if ((hour == 6 && min >= 0) || (hour == 6 && min < 50)) {
-            // 저녁 6~7시 저녁시간
-                current_pg = dinner;
-                current_pg_sub = dinner_time;
-
-                current_pg_en = en_dinner;
-                current_pg_en_sub = en_dinner_time;
-        }
            
         // 9시 45분 이상 = 프로그램 X
         else if ((am_pm == "오후" && hour == 9 && min >= 45) || (am_pm == "오후" && hour > 9))
