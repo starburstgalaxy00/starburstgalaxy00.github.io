@@ -233,25 +233,6 @@
             }
         }
 
-        // 그외, 운영시간 X 
-        else {
-            if (hour == 9) {
-            current_pg = end;
-            current_pg_sub = end_sub;
-
-            current_pg_en = en_end;
-            current_pg_en_sub = en_end_sub;
-            }
-
-            else {
-            current_pg = start;
-            current_pg_sub = start_sub;
-
-            current_pg_en = en_start;
-            current_pg_en_sub = en_start_sub;
-            }
-        }
-
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
         document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
 
