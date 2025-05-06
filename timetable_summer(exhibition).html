@@ -202,7 +202,7 @@
         // 투영관 45분에서 58분 사이
         else if ((hour >= 14 || hour < 21) && (min >= 45 || min < 58)) {
             // 화요일일 경우 시낭송
-            if (week == "화") {
+            if (week == "화" && hour == 7) {
                 current_pg = f1_poetry_recitation;
                 current_pg_sub = hour + f1_time_concert;
 
@@ -210,7 +210,7 @@
                 current_pg_en_sub = en_f1_time1_concert + hour + en_f1_time2_concert;
             }
             // 토요일일 경우 음악회
-            else if (week == "토") {
+            else if (week == "토" && hour == 7) {
                 current_pg = f1_music_concert;
                 current_pg_sub = hour + f1_time_concert;
 
