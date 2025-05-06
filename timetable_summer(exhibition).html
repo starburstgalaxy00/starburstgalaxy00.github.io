@@ -1,14 +1,4 @@
 <!-- 대전시민천문대 시간표 -->
-<!--
-매시간 45분 이상, 58분 미만 = 투영실
-매시간 58분 이상, 45분 미만 = 관측실 
-
-2시 45분 미만 = 관측실(2시 25분)
-5시 45분 이상, 6시 58분 미만 = 투영실(7시)
-9시 45분 이상 = 프로그램 X
-
-단, 화요일 8시는 시낭송, 토요일 8시는 음악회 추천
--->
 
 <!DOCTYPE html>
 
@@ -113,6 +103,9 @@
     var open_time = 14;
     var close_time = 22;
 
+    var summer = 18;
+    var winter = 17;
+
     var f1 = "1층 투영관";
     var f1_poetry_recitation = "1층 시낭송<br>(예약자 우선)";
     var f1_music_concert = "1층 음악회<br>(예약자 우선)";
@@ -172,7 +165,7 @@
         //}
 
         // 운영시간이 아닌 경우
-        if ((hour < 14) || (hour > 21 && min > 45)) {
+        if ((hour < open_time) || (hour > close_time-1 && min > 45)) {
             if (hour < 14) {
                 current_pg = start;
                 current_pg_sub = start_sub;
@@ -190,7 +183,7 @@
         }
        
         // 5시 45분 이상, 6시 50분 미만 = 저녁시간
-        else if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
+        else if ((hour == summer-1 && min >= 45) || (hour == summer && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
                 current_pg_sub = dinner_time;
