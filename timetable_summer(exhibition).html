@@ -166,7 +166,7 @@
 
         // 운영시간이 아닌 경우
         if ((hour < open_time) || (hour > close_time-1 && min > 45)) {
-            if (hour < 14) {
+            if (hour < opne_time) {
                 current_pg = start;
                 current_pg_sub = start_sub;
 
