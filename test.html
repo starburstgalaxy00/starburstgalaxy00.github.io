@@ -49,13 +49,10 @@
 
     .datetime {font-size: 60px;}
 
-    .font {font-size: 60px;}
-    .font-small {font-size: 20px;}
-    .font-title {font-size: 90px; color: yellow;}
+    .fs {font-size: 60px;}
+    .fs-20 {font-size: 20px;}
+    .fs-title {font-size: 90px; color: yellow;}
 
-    .alltimes {font-size: 40px;}
-    .alltimes-title {font-size: 60px;}
-    
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
     .alltimes > p {font-size: 32px; color: #adadad;}
 
@@ -73,27 +70,23 @@
     <body>
         <div class="container">
                <div class="rotate top-left">
-                    <div class="datetime font-small">
+                    <div class="datetime fs-20">
                         <div id="date"></div>
                         <div id="time" class="time"></div>
                     </div>
                 </div>
             <div class="rotate">
-
                 <div>
-                    <div class="font-small">오늘의 관측대상</div>
-                    <div id="current_pg" class="pt-40 current-title"></div>
+                    <div class="fs-20">오늘의 관측대상</div>
+                    <div id="current_pg" class="pt-40 fs-title"></div>
                     <p id="current_pg_en"></p>
                     <div id="current_pg_sub" class="pt-40"></div>
                     <p id="current_pg_en_sub"></p>
                 </div>
-                <div class="alltimes pt-200">
+                <div class="fs-20">
                     <div>< 상시 관람 ></div>
                     <p>< Open for viewing at all times ></p>
-                    <div class="pt-40 alltimes-title">2층 전시실 </div>
-                    <p>2nd floor exhibition</p>
-                    <div class="pt-40">데스크에서 리플렛 받아가세요.</div>
-                    <p>Please pick up a leaflet at the desk.</p>
+                    <div class="fs-20">2층 전시실 </div>
                 </div>
             </div>
         </div>
