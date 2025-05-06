@@ -173,7 +173,7 @@
                 current_pg_en = en_start;
                 current_pg_en_sub = en_start_sub;
             }
-            else if (hour > 21 && min > 45) {
+            else if (hour > close_time-1 && min > 45) {
                 current_pg = end;
                 current_pg_sub = end_sub;
 
