@@ -175,17 +175,17 @@
         if ((hour < 14) || (hour > 21 && min > 45)) {
             if (hour < 14) {
                 current_pg = start;
-                current_pg_sub = start_time;
+                current_pg_sub = start_sub;
 
                 current_pg_en = en_start;
-                current_pg_en_sub = en_start_time;
+                current_pg_en_sub = en_start_sub;
             }
             else if (hour > 21 && min > 45) {
                 current_pg = end;
-                current_pg_sub = end_time;
+                current_pg_sub = end_sub;
 
                 current_pg_en = en_end;
-                current_pg_en_sub = en_end_time;
+                current_pg_en_sub = en_end_sub;
             }   
         }
        
