@@ -1,0 +1,37 @@
+﻿object_name,catalogue,classification,location,distance,apparent_magnitude,feature
+레굴루스,Regulus,항성(Star),사자자리(Leo),77광년(ly),1.35,"표면온도 13,000도 정도의 청백색 별"
+목성,Jupiter,행성(Planet),태양계 5번째 행성,5.2AU,-2.94 ~ -1.6 (거리에 따른 변화),"거대 기체 행성으로 구름층이 뚜렷하게 관측된다. 갈릴레오위성인 이오, 유로파, 가니메데, 칼리스토가 잘 보인다."
+플레이아데스성단,"M45, Pleiades",산개성단(Open Cluster),황소자리(Taurus),444광년(ly),1.6,"별들이 띄엄띄엄 무리 지어 있는 천체, 좀생이별"
+알기에바,Algieba,항성(Star) / 쌍성(Binary),사자자리(Leo),130광년(ly),2.5,2개의 별이 짝을 이뤄 공전하는 천체
+프레세페성단,"M44, Praesepe",산개성단(Open Cluster),게자리(Cancer),577광년(ly),4,별들이 띄엄띄엄 무리 지어 있는 천체
+베텔기우스,Betelgeuse,항성(Star) / 적색거성(Red Giant),오리온자리(Orion),700광년(ly),0.5,"표면온도가 3,000도 정도로 낮아 붉은 별"
+시리우스,Sirius,항성(Star),큰개자리(Canis Major),8광년(ly),-1.5,"표면온도가 10,000도 정도로 푸른 별"
+카스토르,Castor,항성(Star),쌍둥이자리(Gemini),50광년(ly),1.5,2개의 별이 짝을 이뤄 공전하는 천체
+카펠라,Capella,항성(Star),마차부자리(Auriga),43광년(ly),0.1,"표면온도 5,000도 정도로 노란 별"
+달,Moon,위성(Moon),지구의 위성,"380,000km",-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.
+오리온대성운,"M42, Orion Nebula",발광성운(Emission Nebula),오리온자리(Orion),"1,500광년(ly)",4,우주에 존재하는 가스와 먼지 덩어리인 천체
+베가,Vega,항성(Star),거문고자리(Lyra),25광년(ly),0,"표면온도 9,600정도의 청백색 별"
+알비레오,Albireo,항성(Star) / 쌍성(Binary),백조자리(Cygnus),430광년(ly),3.2,"주황색, 푸른색 2개의 별이 짝을 이뤄 공전하는 천체"
+아크투루스,Arcturus,항성(Star) / 적색거성(Red Giant),목동자리(Bootes),36.7광년(ly),-0.05,"표면온도 4,300도 정도의 주황색 별"
+스피카,Spica,항성(Star),처녀자리(Virgo),250광년(ly),0.97,"표면온도 22,400도 정도의 청백색 별"
+헤라클레스 구상성단,"M13, Hercules Globular Cluster",구상성단(Globular Cluster),헤라클레스 자리(Hercules),"25,000광년(ly)",5.8,10만개 이상의 별이 무리를 이루고 있는 천체
+알타이르,Altair,항성(Star),독수리자리(Aquila),16.7광년(ly),0.76,"표면온도 7,700도 정도의 흰색 별"
+옷걸이성단,"Cr399, Brocchi's Cluster",성군(Asterism),여우자리(Vulpecula),성군은 특정 거리에 놓여있지 않다.,3.6,10개의 별이 같은 방향에 놓여 옷걸이처럼 보인다.
+안드로메다은하,"M31, Andromeda Galaxy",은하(Galaxy),안드로메다자리(Andromeda),"2,500,000광년(ly)",3.4,우리 은하에서 가장 가까운 약 1조개의 별이 모인 은하
+토성,Saturn,행성(Planet),태양계 6번째 행성,9.56AU,0.46,거대하고 뚜렷한 고리가 관측되는 행성
+화성,Mars,행성(Planet),태양계 4번째 행성,1.523AU,-2.94 ~ 1.86 (거리에 따른 변화),모래 폭풍과 극관이 관측되는 붉은 행성
+금성,Venus,행성(Planet),태양계 2번째 행성,0.723AU,-4.6 ~ -2.9 (거리에 따른 변화),가장 밝게 관측되며 위상의 변화도 볼 수 있는 행성
+수성,Mercury,행성(Planet),태양계 1번째 행성,0.387AU,-2.0 ~ 5.5 (거리에 따른 변화),위상의 변화를 볼 수 있는 행성
+알데바란,Aldebaran,항성(Star) / 적색거성(Red Giant),황소자리(Taurus),65광년(ly),0.85,"표면온도 3,900도 정도의 붉은 별"
+프로키온,Procyon,항성(Star),작은개자리(Canis Minor),11.4광년(ly),0.4,"표면온도 7,600도 정도의 흰색 별"
+M39,M39,산개성단(Open Cluster),백조자리(Cygnus),"1,010광년(ly)",4.6,별들이 띄엄띄엄 무리 지어 있는 천체
+안타레스,Antares,항성(Star) / 적색거성(Red Giant),전갈자리(Scorpius),550광년(ly),1,"표면온도 3,600도 정도의 붉은 별"
+데네브,Deneb,항성(Star) / 청색초거성(Blue Supergiant),백조자리(Cygnus),"2,600광년(ly)",1.2,1등성 중에 먼 거리임에도 밝게 관측되는 청색초거성
+M15,M15,구상성단(Globular Cluster),페가수스자리(Pegasus),"33,600광년(ly)",6.2,
+북극성,Polaris,항성(Star),작은곰자리(Ursa Minor),433광년(ly),2,일반적인 인식과는 다르게 조금 어두운 2등급의 항성
+알마크,Almach,항성(Star) / 쌍성(Binary),안드로메다자리(Andromeda),355광년(ly),2.26,"주황색, 푸른색 2개의 별이 짝을 이뤄 공전하는 천체"
+폴룩스,Pollux,항성(Star),쌍둥이자리(Gemini),34광년(ly),1.14,"표면온도 4,800도 정도의 주황색 별"
+리겔,Rigel,항성(Star),오리온자리(Orion),860광년(ly),0.1,"표면온도 11,000도 정도의 청백색 별"
+고리성운,"M57, Ring Nebula",행성상성운(Planetary Nebula),거문고자리(Lyra),"2,300광년(ly)",9,날씨가 매우 좋은 날 고리 형태로 관측되는 성운
+이중성단,"NGC869/884, Double Cluster",산개성단(Open Cluster),페르세우스자리(Perseus),"7,500광년(ly)",3.7,2개의 산개성단이 짝을 이루고 있는 천체
+"미자르, 알코르","Mizar, Alcor",다중성계(Multiple Star System),큰곰자리(Ursa Major),82광년(ly),2,가까이 있어 시력이 좋으면 맨눈으로 구별할 수 있는 별
