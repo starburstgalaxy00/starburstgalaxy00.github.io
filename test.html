@@ -27,9 +27,9 @@
         align-items: center;
     }
 
-    .top-left {
+    .bottoom-left { /* 회전(세로 기준top left) */
        position: absolute;
-       top: 20px;
+       bottom: 20px;
        left: 20px;
     }
 
@@ -45,9 +45,9 @@
         height: 100%;
     }
 
-    .rotate-topleft {
+    .rotate-bottomleft { /* 회전(세로 기준top left) */
         transform: rotate(-90deg);
-        transform-origin: top left;
+        transform-origin: bottom left;
     }
 
     .time {font-weight: bold; color: yellow;}
@@ -73,13 +73,13 @@
     </head>
 
     <body>
-       <div class="top-left">
-            <!--<div class="rotate-topleft">-->
+       <div class="bottom-left">
+            <div class="rotate-bottomleft">
                 <div class="datetime fs-20">
                     <div id="date"></div>
                     <div id="time" class="time"></div>
                 </div>
-            <!--</div>-->
+            </div>
         </div>
         <div class="container">
             <div class="rotate">
