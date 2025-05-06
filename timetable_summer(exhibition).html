@@ -171,9 +171,26 @@
         //    hour = hour - 12;
         //}
 
+        // 운영시간이 아닌 경우
+        if ((hour < 14) || (hour > 21 && min > 45)) {
+            if (hour >14) {
+                current_pg = start;
+                current_pg_sub = start_time;
 
+                current_pg_en = en_start;
+                current_pg_en_sub = en_start_time;
+            }
+            else if (hour > 21 && min > 45) {
+                current_pg = end;
+                current_pg_sub = end_time;
+
+                current_pg_en = en_end;
+                current_pg_en_sub = en_end_time;
+            }   
+        }
+       
         // 5시 45분 이상, 6시 50분 미만 = 저녁시간
-        if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
+        else if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
                 current_pg_sub = dinner_time;
