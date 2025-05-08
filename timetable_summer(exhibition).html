@@ -115,7 +115,8 @@
     var f3_time1 = ":25 ~ ";
     var f3_time2 = ":45";
     var dinner = "저녁시간";
-    var dinner_time = ":00 ~ ";
+    var dinner_time1 = ":00 ~ ";
+    var dinner_time2 = ":00";
     var start = "프로그램<br>준비중입니다.";
     var start_sub = "조금만 기다려주세요.";
     var end = "프로그램이<br>종료되었습니다.";
@@ -132,7 +133,8 @@
     var en_f3_time1 = ":25 ~ ";
     var en_f3_time2 = ":45";
     var en_dinner = "It's dinner time~";
-    var en_dinner_time = ":00 ~ ";
+    var en_dinner_time1 = ":00 ~ ";
+    var en_dinner_time2 = ":00";
     var en_start = "The program isn't prepared yet";
     var en_start_sub = "Please wait a moment!"
     var en_end = "The program has ended.";
@@ -186,10 +188,10 @@
         else if ((hour == summer-1 && min >= 45) || (hour == summer && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
-                current_pg_sub = summer + dinner_time;
+                current_pg_sub = summer + dinner_time1 + (summer+1) + dinner_time2;
 
                 current_pg_en = en_dinner;
-                current_pg_en_sub = (summer + 1) + en_dinner_time;
+                current_pg_en_sub = summer + en_dinner_time1 + (summer+1) + en_dinner_time2;
         }
         // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
         else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
