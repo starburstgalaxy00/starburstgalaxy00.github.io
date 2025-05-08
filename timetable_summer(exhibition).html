@@ -186,10 +186,10 @@
         else if ((hour == summer-1 && min >= 45) || (hour == summer && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
-                current_pg_sub = dinner_time;
+                current_pg_sub = summer + dinner_time;
 
                 current_pg_en = en_dinner;
-                current_pg_en_sub = en_dinner_time;
+                current_pg_en_sub = (summer + 1) + en_dinner_time;
         }
         // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
         else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
