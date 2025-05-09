@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <title>ObservableImages</title>
   <style>
+    #objectName {
+      width: 200px;
+      height: 20px;
+      font-size: 15px;
+    }
     /* 기존 스타일 유지 */
     .image-viewer {
       position: fixed; /* 화면 고정 */
@@ -144,22 +149,66 @@
     }
   </script>
 
+
   <h2>관측대상(test)</h2>
     <label>객체 이름:</label>
     <select id="objectName">
-      <option value="시리우스">시리우스</option>
-      <option value="베텔게우스">베텔게우스</option>
-      <option value="안타레스">안타레스</option>
+      <option value="">관측대상을 불러오는 중...</option>
     </select><br>
       
-    <button onclick="goToNextPage()">다음 페이지로 이동</button>
+    <button onclick="goToNextPage()">관측대상 정보 보기</button>
   
   <script>
+    // CSV 파일 경로
+    const csvPath = "data/observationtable.csv";
+
+    // CSV 파일 불러오기
+    async function loadCSV() {
+      try {
+        const response = await fetch(csvPath);
+        if (!response.ok) throw new Error("데이터 파일을 불러올 수 없습니다.");
+        const data = await response.text();
+        updateDropdown(data);
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+
+    // 드롭다운 업데이트
+    function updateDropdown(data) {
+      const dropdown = document.getElementById("objectName");
+      dropdown.innerHTML = "";
+
+      const lines = data.split(/\r?\n/); // CSV 데이터를 줄 단위로 분리
+
+      for (let i = 1; i<lines.length; i++) { // 첫 번째 줄 건너뜀(헤더)
+        const line = lines[i].trim();
+        if (line) {
+          const columns = line.split(","); // 첫 번째 열만 추출
+          const firstColumn = columns[0];
+
+          if (firstColumn) { // 빈 문자열이 아닐 때만 추가
+            const option = document.createElement("option");
+            option.value = firstColumn;
+            option.textContent = firstColumn;
+            dropdown.appendChild(option);
+          }
+        }
+      }
+    }
+
+    // 다음 페이지 넘어가기
     function goToNextPage() {
       const objectName = encodeURIComponent(document.getElementById("objectName").value);
+      if (!objectName) {
+        alert("관측 대상을 선택하세요.");
+        return;
+      }
       const url = `test.html?object_name=${objectName}`;
       window.location.href = url;
     }
+
+    window.onload = loadCSV;
   </script>
 
 </body>
