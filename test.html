@@ -58,6 +58,12 @@
        width: 100vw;
     }
 
+    #info { /*관측대상정보*/
+        position: fixed;
+        top: 70%;
+        width: 100wh;
+    }
+
     .rotate { /* 회전 */
         transform: rotate(-90deg);
         transform-origin: center center;
@@ -74,11 +80,10 @@
 
     .datetime {font-size: 60px;}
 
-    .fs {font-size: 60px;}
-    .fs-20 {font-size: 20px;}
-    .fs-40 {font-size: 40px;}
-    .fs-100 {font-size: 100px;}
-    .fs-title {font-size: 90px; color: yellow;}
+    .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
+    .fs-info2 {font-size: 3.5vw;} /*설명*/
+    .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
+    .fs-title {font-size: 5.5vw;} /*메인이름*/
 
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
     .alltimes > p {font-size: 32px; color: #adadad;}
@@ -88,7 +93,7 @@
     .pt-260 {padding-top: 260px;}
 </style>
 
-<html lang="en" dir="ltr">
+<html lang="ko" dir="ltr">
     <head>
         <meta charset="utf-8">
     </head>
@@ -96,30 +101,29 @@
     <body>
         <div class="container">
             <div class="rotate">
-                <!--시간표시-->
+                <!--시계-->
                 <div id="watch" class="border">
-                    <div class="datetime fs-20">
+                    <div class="datetime fs-info1">
                     <div id="date"></div>
                     <div id="time" class="time"></div>
                     </div>
                 </div>
                 <!--제목-->
                 <div id="theme" class="border">
-                    <div class="fs-20">오늘의 관측대상</div>
-                    <div id="object_name" class="fs-100"></div>
-                    <div id="catalogue" class="fs-40"></div>
+                    <div class="fs-info1">오늘의 관측대상</div>
+                    <div id="object_name" class="fs-title"></div>
+                    <div id="catalogue" class="fs-subtitle"></div>
                 </div>
                 <!--이미지상자-->
                 <div id="image-container" class="border2">
-                        <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 300; max-height: 300px;">
+                        <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 900; max-height: 40vw;">
                     <div class="fs-20">촬영자 정보</div>
                 </div>
-                <div>
-                    <div class="fs-20 border">관측대상 정보</div>
-                    <div id="current_pg" class="pt-40 fs-title"></div>
-                    <p id="current_pg_en"></p>
-                    <div id="current_pg_sub" class="pt-40"></div>
-                    <p id="current_pg_en_sub"></p>
+                <!--관측대상정보-->
+                <div id="info">
+                    <div class="fs-info2 border">관측대상 정보</div>
+                    <div id="classification" class="pt-40 fs-info2"></div>
+                    <div id="distance" class="pt-40 fs-info2"></div>
                 </div>
             </div>
         </div>
@@ -143,6 +147,10 @@
 
         const dataItem = parsedData.find(item => item.object_name ===objectName);
 
+        //console.log(parsedData);
+        //console.log(objectName);
+        //console.log(dataItem);
+
         if(dataItem) {
             document.getElementById("object_name").textContent = dataItem.object_name;
             document.getElementById("catalogue").textContent = dataItem.catalogue;
@@ -153,6 +161,7 @@
             const imagePath = `./images/${dataItem.image}`; // 이미지 경로
             document.getElementById("object_image").src = imagePath; 
             document.getElementById("object_image").alt = dataItem.object_name;
+
         } else {
             console.log("해당 데이터를 찾을 수 없습니다.");
         }
