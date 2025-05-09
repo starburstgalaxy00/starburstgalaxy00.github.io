@@ -144,6 +144,24 @@
     }
   </script>
 
+  <h2>관측대상(test)</h2>
+    <label>객체 이름:</label>
+    <select id="objectName">
+      <option value="시리우스">시리우스</option>
+      <option value="베텔게우스">베텔게우스</option>
+      <option value="안타레스">안타레스</option>
+    </select><br>
+      
+    <button onclick="goToNextPage()">다음 페이지로 이동</button>
+  
+  <script>
+    function goToNextPage() {
+      const objectName = encodeURIComponent(document.getElementById("objectName").value);
+      const url = `test.html?object_name=${objectName}`;
+      window.location.href = url;
+    }
+  </script>
+
 </body>
 
 </html>

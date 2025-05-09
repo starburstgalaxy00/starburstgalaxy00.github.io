@@ -10,9 +10,13 @@
         background-color: black;
         color: white;
         overflow: hidden;
-        position: relative;
-        width: 100vw;
-        height: 100vh;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .border {
+        border: 2px solid red;
     }
 
     .container {
@@ -27,19 +31,22 @@
         align-items: center;
     }
 
-    .bottom-left { /*시계 위치*/
-       position: fixed;
-       top: 90vh;
-       left: 0.5vw;
+    .top-left { /*시계 위치*/
+        position: fixed;
+        transform: translate(-50%,0);
+        top: 0%;
+        left: 5%;
     }
 
-    .bottom-middle { /*제목 위치*/
+    .top-center { /*제목 위치*/
        position: fixed;
-       top: 50vh;
-       left: 0.2vw;
+       transform: translate(-50%,0);
+       top: 0%;
+       left: 50%;
+       text-align: center;
     }
 
-    .rotate {
+    .rotate { /* 회전 */
         transform: rotate(-90deg);
         transform-origin: center center;
         display: flex;
@@ -57,6 +64,8 @@
 
     .fs {font-size: 60px;}
     .fs-20 {font-size: 20px;}
+    .fs-40 {font-size: 40px;}
+    .fs-100 {font-size: 100px;}
     .fs-title {font-size: 90px; color: yellow;}
 
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
@@ -70,31 +79,32 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     </head>
 
-    <!--시간표시-->
     <body>
-        <div class="bottom-left">
+        <div class="container border">
             <div class="rotate">
-              <div class="datetime fs-20">
-                <div id="date"></div>
-                <div id="time" class="time"></div>
-              </div>
-            </div>
-        </div>
-    <!--시간표시-->
-        <div class="bottom-middle">
-            <div class="rotate">
-              <div class="fs-20">오늘의 관측대상</div>
-              <div id="object_name" class="fs-120"></div>
-              <div id="catalogue" class="fs-20"></div>
-            </div>
-        </div>
-        <!--div class="container"-->
-            <div class="rotate">
-                <div>
+                <!--시간표시-->
+                <div class="top-left border">
+                    <div class="datetime fs-20">
+                    <div id="date"></div>
+                    <div id="time" class="time"></div>
+                    </div>
+                </div>
+                <!--제목-->
+                <div class="top-center border">
                     <div class="fs-20">오늘의 관측대상</div>
+                    <div id="object_name" class="fs-100"></div>
+                    <div id="catalogue" class="fs-40"></div>
+                </div>
+                <!--이미지상자-->
+                <div class="top-center border">
+                    <div class="fs-20">오늘의 관측대상</div>
+                    <div class="fs-100"></div>
+                    <div class="fs-40"></div>
+                </div>
+                <div>
+                    <div class="fs-20 border">오늘의 관측대상</div>
                     <div id="current_pg" class="pt-40 fs-title"></div>
                     <p id="current_pg_en"></p>
                     <div id="current_pg_sub" class="pt-40"></div>
@@ -106,48 +116,23 @@
                     <div class="fs-20">2층 전시실 </div>
                 </div>
             </div>
-        <!--/div-->
+        </div>
     </body>
 </html>
 
 <script type="text/javascript">
-    var object_name = "";
-    var catalogue = "";
+    const params = new URLSearchParams(window.location.search);
+    const objectName = decodeURIComponent(params.get("object_name") || "값 없음");
+    const catalogue = decodeURIComponent(params.get("catalogue") || "값 없음");
 
-    var current_pg_en = "";
-    var current_pg_en_sub = "";
+    document.getElementById("object_name").innerHTML = `${objectName}`;
+    document.getElementById("catalogue").innerHTML = catalogue;
 
-    var f1 = "1층 투영관";
-    var f1_poetry_recitation = "1층 시낭송(예약자 우선)";
-    var f1_music_concert = "1층 음악회(예약자 우선)";
-    var f1_time = ":58 입장 마감 / 만 5세 이상";
-    var f1_time_concert = ":58 예약자 입장 마감 / 만 7세 이상";
-    var f3 = "3층 관측실";
-    var f3_time1 = ":25 ~ ";
-    var f3_time2 = ":45";
-    var dinner = "저녁시간";
-    var dinner_time = ":00 ~ ";
-    var end = "프로그램이 종료되었습니다.";
-    var end_sub = "다음에 또 만나요.";
-
-    var en_f1 = "1st floor planetarium";
-    var en_f1_poetry_recitation = "1st floor poetry recitation(Priority for reservations)";
-    var en_f1_music_concert = "1st floor music concert(Priority for reservations)";
-    var en_f1_time1 = "Last admission at ";
-    var en_f1_time2 = ":58 / 5 years and older";
-    var en_f1_time1_concert = "Last admission for reservation at ";
-    var en_f1_time2_concert = ":58 / 7 years and older ";
-    var en_f3 = "3rd floor observatory";
-    var en_f3_time1 = ":25 ~ ";
-    var en_f3_time2 = ":45";
-    var en_dinner = "It's dinner time~";
-    var en_dinner_time = ":00 ~ ";
-    var en_end = "The program has ended.";
-    var en_end_sub = "See you again next time!"
+    console.log("Object Name:", object_name);
+    console.log("Catalogue:", catalogue);
 
     function setClock() {
         var date = new Date();
-        //var date = new Date("2025-04-22 18:00:00");
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
         var day = date.getDate();
@@ -159,80 +144,10 @@
         var min = modifyNumber(date.getMinutes());
         var sec = modifyNumber(date.getSeconds());
 
-        var first_arrow_display = "block";
-        var second_arrow_display = "block";
-
-        // 오전, 오후 구분
-        //if (hour < 13) {
-        //    var am_pm = "오전";
-        //}
-        //else {
-        //    var am_pm = "오후";
-        //    hour = hour - 12;
-        //}
-
-
-        // 5시 45분 이상, 6시 50분 미만 = 저녁시간
-        if ((hour == 17 && min >= 45) || (hour == 18 && min < 50)) {
-            // 저녁 6~7시 저녁시간
-                current_pg = dinner;
-                current_pg_sub = dinner_time;
-
-                current_pg_en = en_dinner;
-                current_pg_en_sub = en_dinner_time;
-        }
-        // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
-        else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
-            current_pg = f3;
-            current_pg_sub = hour + f3_time1 + hour + f3_time2;
-
-            current_pg_en = en_f3;
-            current_pg_en_sub = hour + en_f3_time1 + hour + en_f3_time2;
-        }
-        // 투영관 45분에서 58분 사이
-        else if ((hour >= 14 || hour < 21) && (min >= 45 || min < 58)) {
-            // 화요일일 경우 시낭송
-            if (week == "화") {
-                current_pg = f1_poetry_recitation;
-                current_pg_sub = hour + f1_time_concert;
-
-                current_pg_en = en_f1_poetry_recitation;
-                current_pg_en_sub = en_f1_time1_concert + hour + en_f1_time2_concert;
-            }
-            // 토요일일 경우 음악회
-            else if (week == "토") {
-                current_pg = f1_music_concert;
-                current_pg_sub = hour + f1_time_concert;
-
-                current_pg_en = en_f1_music_concert;
-                current_pg_en_sub = en_f1_time1_concert + hour + en_f1_time2_concert;
-            }
-            else {
-                current_pg = f1;
-                current_pg_sub = hour + f1_time; 
-    
-                current_pg_en = en_f1;
-                current_pg_en_sub =  en_f1_time1 + hour + en_f1_time2;
-            }
-        }
-
-        // 그외, 운영시간 X 
-        else {
-            current_pg = end;
-            current_pg_sub = end_sub;
-
-            current_pg_en = en_end;
-            current_pg_en_sub = en_end_sub;
-        }
-
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
         document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
 
-        document.getElementById("object_name").innerHTML = object_name;
-        document.getElementById("catalogue").innerHTML = catalogue;
 
-        document.getElementById("current_pg_en").innerHTML = current_pg_en;
-        document.getElementById("current_pg_en_sub").innerHTML = current_pg_en_sub;
     }
 
     function modifyNumber(time) {
@@ -247,4 +162,5 @@
         setClock();
         setInterval(setClock, 1000); //1초마다 setClock 함수 실행
     }
+
 </script>
