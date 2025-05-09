@@ -15,6 +15,13 @@
         height: 100%;
     }
 
+    #image-container {
+        position: absolute;
+        top: 12%;
+        width:100vh;
+        height:40vw;
+    }
+
     .border {
         border: 2px solid red;
     }
@@ -35,14 +42,14 @@
         align-items: center;
     }
 
-    .top-left { /*시계 위치*/
+    #watch { /*시계 위치*/
         position: fixed;
         transform: translate(-50%,0);
         top: 0%;
         left: 5%;
     }
 
-    .top-center { /*제목 위치*/
+    #theme { /*제목 위치*/
        position: fixed;
        transform: translate(-50%,0);
        top: 0%;
@@ -87,17 +94,17 @@
     </head>
 
     <body>
-        <div class="container border">
-            <div class="rotate border2">
+        <div class="container">
+            <div class="rotate">
                 <!--시간표시-->
-                <div class="top-left border">
+                <div id="watch" class="border">
                     <div class="datetime fs-20">
                     <div id="date"></div>
                     <div id="time" class="time"></div>
                     </div>
                 </div>
                 <!--제목-->
-                <div class="top-center border">
+                <div id="theme" class="border">
                     <div class="fs-20">오늘의 관측대상</div>
                     <div id="object_name" class="fs-100"></div>
                     <div id="catalogue" class="fs-40"></div>
@@ -105,18 +112,14 @@
                 <!--이미지상자-->
                 <div id="image-container" class="border2">
                         <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 300; max-height: 300px;">
+                    <div class="fs-20">촬영자 정보</div>
                 </div>
                 <div>
-                    <div class="fs-20 border">테스트 상자2</div>
+                    <div class="fs-20 border">관측대상 정보</div>
                     <div id="current_pg" class="pt-40 fs-title"></div>
                     <p id="current_pg_en"></p>
                     <div id="current_pg_sub" class="pt-40"></div>
                     <p id="current_pg_en_sub"></p>
-                </div>
-                <div class="fs-20 border">
-                    <div>< 상시 관람 ></div>
-                    <p>< Open for viewing at all times ></p>
-                    <div class="fs-20">2층 전시실 </div>
                 </div>
             </div>
         </div>
