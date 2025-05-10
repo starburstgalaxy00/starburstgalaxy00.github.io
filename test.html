@@ -55,7 +55,7 @@
        top: 0%;
        left: 50%;
        text-align: center;
-       width: 100vw;
+       width: 100vh;
     }
 
     #close { /*닫기버튼 위치*/
@@ -71,8 +71,9 @@
     #info { /*관측대상정보*/
         position: fixed;
         top: 54%;
-        width: 100vw;
-        height: 50vh;
+        width: 90vh;
+        height: 45vw;
+        text-align: left;
     }
 
     .rotate { /* 회전 */
@@ -107,6 +108,7 @@
 <html lang="ko" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <title>observationimage</title>
     </head>
 
     <body>
@@ -139,8 +141,11 @@
                 <!--관측대상정보-->
                 <div id="info" class="border">
                     <div class="fs-info2">관측대상 정보</div>
-                    <div class="pt-info2 fs-info2">분류: <span id="classification"></span></div>
-                    <div class="pt-info2 fs-info2">거리: <span id="distance"></span></div>
+                    <li class="pt-info2 fs-info2">분류: <span id="classification"></span></li>
+                    <li class="pt-info2 fs-info2">위치: <span id="location"></span></li>
+                    <li class="pt-info2 fs-info2">거리: <span id="distance"></span></li>
+                    <li class="pt-info2 fs-info2">등급: <span id="apparent_magnitude"></span></li>
+                    <li class="pt-info2 fs-info2">특징 <br> <span id="feature"></span></li>
                 </div>
             </div>
         </div>
@@ -173,6 +178,9 @@
             document.getElementById("catalogue").textContent = dataItem.catalogue;
             document.getElementById("classification").textContent = dataItem.classification;
             document.getElementById("distance").textContent = dataItem.distance;
+            document.getElementById("feature").textContent = dataItem.feature;
+            document.getElementById("location").textContent = dataItem.location;
+            document.getElementById("apparent_magnitude").textContent = dataItem.apparent_magnitude;
 
             // 이미지 불러오기
             const imagePath = `./images/${dataItem.image}`; // 이미지 경로
