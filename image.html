@@ -85,8 +85,14 @@
           <a href="#" onclick="showImage('images/info(unable_to_observe).jpg', '관측불가능')">관측 불가능</a>
         </div>
       </section>
-
-      <section>
+    <h2>관측대상</h2>
+    <label>관측대상을 선택해주세요.</label><br>
+      <select id="objectName">
+       <option value="">관측대상을 불러오는 중...</option>
+     </select><br>
+      
+    <button onclick="goToNextPage()">관측대상 정보 보기</button>
+      <!--section>
         <h2>관측 대상</h2>
         <section>
           <h3>태양계</h3>
@@ -118,7 +124,7 @@
     <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
       <button onclick="closeImageViewer(event)">닫기</button>
       <img id="displayedImage" src="" alt="">
-    </div>
+    </div-->
 
     <hr>
 
@@ -148,15 +154,6 @@
       }
     }
   </script>
-
-
-  <h2>관측대상(test)</h2>
-    <label>선택하세요:</label>
-    <select id="objectName">
-      <option value="">관측대상을 불러오는 중...</option>
-    </select><br>
-      
-    <button onclick="goToNextPage()">관측대상 정보 보기</button>
   
   <script>
     // CSV 파일 경로
