@@ -23,11 +23,11 @@
     }
 
     .border {
-        border: 2px solid red;
+        /*border: 2px solid red;*/
     }
 
     .border2 {
-        border: 2px solid rgb(43, 255, 0);
+        /*border: 2px solid rgb(43, 255, 0);*/
     }
 
     .container {
@@ -135,8 +135,9 @@
                 </div>
                 <!--이미지상자-->
                 <div id="image-container" class="border2">
-                        <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 900; max-height: 40vw;">
-                    <div class="fs-20">촬영자 정보</div>
+                    <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 900; max-height: 40vw;">
+                    <div class="fs-20">촬영: <span id="photo_data1"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                        촬영장소: <span id="photo_data2"></span></div>
                 </div>
                 <!--관측대상정보-->
                 <div id="info" class="border">
@@ -181,6 +182,8 @@
             document.getElementById("feature").textContent = dataItem.feature;
             document.getElementById("location").textContent = dataItem.location;
             document.getElementById("apparent_magnitude").textContent = dataItem.apparent_magnitude;
+            document.getElementById("photo_data1").textContent = dataItem.photo_data1;
+            document.getElementById("photo_data2").textContent = dataItem.photo_data2;
 
             // 이미지 불러오기
             const imagePath = `./images/${dataItem.image}`; // 이미지 경로

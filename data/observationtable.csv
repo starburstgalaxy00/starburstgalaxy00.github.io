@@ -1,4 +1,4 @@
-﻿object_name,catalogue,classification,location,distance,apparent_magnitude,feature,image
+﻿object_name,catalogue,classification,location,distance,apparent_magnitude,feature,image,photo_data1,photo_data2
 레굴루스,Regulus,항성(Star),사자자리(Leo),77광년(ly),1.35,표면온도 13000도 정도의 청백색 별,
 목성,Jupiter,행성(Planet),태양계 5번째 행성,5.2AU,-2.94 ~ -1.6 (거리에 따른 변화),거대 기체 행성으로 구름층이 뚜렷하게 관측된다. 갈릴레오위성인 이오 유로파 가니메데 칼리스토가 잘 보인다.,jupiter.jpg
 플레이아데스성단,M45(Pleiades),산개성단(Open Cluster),황소자리(Taurus),444광년(ly),1.6,"별들이 띄엄띄엄 무리 지어 있는 천체, 좀생이별",
@@ -8,8 +8,8 @@
 시리우스,Sirius,항성(Star),큰개자리(Canis Major),8광년(ly),-1.5,표면온도가 10000도 정도로 푸른 별,
 카스토르,Castor,항성(Star),쌍둥이자리(Gemini),50광년(ly),1.5,2개의 별이 짝을 이뤄 공전하는 천체,
 카펠라,Capella,항성(Star),마차부자리(Auriga),43광년(ly),0.1,표면온도 5000도 정도로 노란 별,
-초승달,Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_crescent.jpg
-볼록달,Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_gibbous.jpg
+초승달,Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_crescent.jpg,권홍주,대전시민천문대
+볼록달,Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_gibbous.jpg,권홍주,대전시민천문대
 오리온대성운,M42(Orion Nebula),발광성운(Emission Nebula),오리온자리(Orion),1500광년(ly),4,우주에 존재하는 가스와 먼지 덩어리인 천체,
 베가,Vega,항성(Star),거문고자리(Lyra),25광년(ly),0,표면온도 9600정도의 청백색 별,
 알비레오,Albireo,항성(Star) / 쌍성(Binary),백조자리(Cygnus),430광년(ly),3.2,"주황색, 푸른색 2개의 별이 짝을 이뤄 공전하는 천체",
