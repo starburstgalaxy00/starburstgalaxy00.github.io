@@ -97,7 +97,7 @@
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
     .fs-info2 {font-size: 2vw;} /*설명*/
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
-    .fs-title {font-size: 5.5vw;} /*메인이름*/
+    .fs-title {font-size: 5vw;} /*메인이름*/
 
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
     .alltimes > p {font-size: 32px; color: #adadad;}
@@ -250,9 +250,9 @@ function loadCSV() {
                         const targetText2 = "화: 시낭송회 / 토: 별음악회";
 
                         const pattern1 = new RegExp(targetText1.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim(), 'g');
-                        timeText = timeText.replace(pattern1, `<span style="color:red;">${targetText1}</span>`);
+                        timeText = timeText.replace(pattern1, `<span style="color:red; font-size:2vw;">${targetText1}</span>`);
                         const pattern2 = new RegExp(targetText2.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim(), 'g');
-                        proText = proText.replace(pattern2, `<span style="color:red;">${targetText2}</span>`);
+                        proText = proText.replace(pattern2, `<span style="color:red; font-size:2vw;">${targetText2}</span>`);
 
                         timeCell.innerHTML = timeText;
                         proCell.innerHTML = proText;
