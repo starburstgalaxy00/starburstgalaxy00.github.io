@@ -17,7 +17,7 @@
 
 
     .border {
-        border: 2px solid red;
+        /*border: 2px solid red;*/
     }
 
     .border2 {
@@ -108,12 +108,12 @@
 
     .timetable {
         position: fixed;
-        top: 20vw;
+        top: 15vw;
         left: 2.5vh;
         border: 1px solid #ccc;
         margin-top: px;
         width: 95vh;
-        height: 60vw;
+        height: 70vw;
     }
 
     .timetable th, .timetable td {
@@ -124,7 +124,7 @@
     }
 
     .timetable th {
-        background-color: #f0f0f0;
+        background-color: #fae7aa;
     }
 </style>
 
@@ -158,8 +158,8 @@
                 <div id="timetable-container" class="border"></div>
                 <!--하단정보-->
                 <div id="info2" class="border">
-                    <div class="fs-info2">＊ 만 5세 이상부터 입장(시낭송, 음악회는 만 7세 이상)</div>
-                    <div class="fs-info2">＊ 프로그램 시작하면 출입 절대 불가</div>
+                    <div class="fs-info2">＊ <span style="color:red; font-weight: bold;">만 5세 이상</span>부터 입장(시낭송, 음악회는 <span style="color:red; font-weight: bold;">만 7세 이상</span>)</div>
+                    <div class="fs-info2">＊ 프로그램 시작하면출입 절대 불가</div>
                     <div class="fs-info2">＊ 프로그램 시작하면 녹화 및 사진 촬영 불가</div>
                 </div>
             </div>
@@ -239,9 +239,23 @@ function loadCSV() {
                         const roundCell = document.createElement('td');
                         roundCell.textContent = round++;
                         const timeCell = document.createElement('td');
-                        timeCell.textContent = monthlyData[timeKey];
+                        let timeText = monthlyData[timeKey];
                         const proCell = document.createElement('td');
-                        proCell.textContent = monthlyData[proKey];
+                        let proText = monthlyData[proKey] || '';
+
+                        timeText = timeText.replace(/\[줄바꿈\]/g, '<br>');
+                        proText = proText.replace(/\[줄바꿈\]/g, '<br>');
+
+                        const targetText1 = "20:00 ~ 20:50";
+                        const targetText2 = "화: 시낭송회 / 토: 별음악회";
+
+                        const pattern1 = new RegExp(targetText1.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim(), 'g');
+                        timeText = timeText.replace(pattern1, `<span style="color:red;">${targetText1}</span>`);
+                        const pattern2 = new RegExp(targetText2.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim(), 'g');
+                        proText = proText.replace(pattern2, `<span style="color:red;">${targetText2}</span>`);
+
+                        timeCell.innerHTML = timeText;
+                        proCell.innerHTML = proText;
 
                         row.appendChild(roundCell);
                         row.appendChild(timeCell);
