@@ -20,7 +20,12 @@
         top: 12%;
         width:100vh;
         height:40vw; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+
 
     .border {
         /*border: 2px solid red;*/
@@ -136,9 +141,12 @@
                 <!--이미지상자-->
                 <div id="image-container" class="border2">
                     <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 900; max-height: 40vw;">
+                </div>
+                <div>
                     <div class="fs-20">촬영: <span id="photo_data1"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
                         촬영장소: <span id="photo_data2"></span></div>
                 </div>
+
                 <!--관측대상정보-->
                 <div id="info" class="border">
                     <div class="fs-info2">관측대상 정보</div>
