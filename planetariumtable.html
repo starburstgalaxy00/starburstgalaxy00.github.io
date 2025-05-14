@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .border {
+        border: 2px solid red;
+    }
+
+    .border2 {
+        border: 2px solid rgb(43, 255, 0);
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vh; /* 주의! 회전할 거라서 vh, vw 바꿔야 함 */
+        height: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #watch { /*시계 위치*/
+        position: fixed;
+        transform: translate(-50%,0);
+        top: 0%;
+        left: 6%;
+    }
+
+    #theme { /*제목 위치*/
+       position: fixed;
+       transform: translate(-50%,0);
+       top: 3%;
+       left: 50%;
+       text-align: center;
+       width: 90vh;
+    }
+
+    #close { /*닫기버튼 위치*/
+        background-color: grey;
+        color:white;
+        position: fixed;
+        transform: translate(-50%,0);
+        top: 0%;
+        left: 96%;
+        text-align: center;
+    }
+
+    #info { /*관측대상정보*/
+        position: fixed;
+        top: 54%;
+        width: 90vh;
+        height: 45vw;
+        text-align: left;
+    }
+
+    #info2 { /*하단정보*/
+        position: fixed;
+        top: 90%;
+        width: 90vh;
+        height: vw;
+        text-align: left;
+    }
+
+    .rotate { /* 회전 */
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100vh;
+        height: 100vw;
+    }
+
+    .time {font-weight: bold; color: red;}
+
+    .datetime {font-size: 60px;}
+
+    .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
+    .fs-info2 {font-size: 2vw;} /*설명*/
+    .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
+    .fs-title {font-size: 5.5vw;} /*메인이름*/
+
+    .datetime > p, .current > p {font-size: 40px; color: #adadad;}
+    .alltimes > p {font-size: 32px; color: #adadad;}
+
+    .pt-info2 {padding-top: 1vw;}
+    .pt-200 {padding-top: 120px;}
+    .pt-260 {padding-top: 260px;}
+
+    .timetable {
+        position: fixed;
+        top: 20vw;
+        left: 2.5vh;
+        border: 1px solid #ccc;
+        margin-top: px;
+        width: 95vh;
+        height: 60vw;
+    }
+
+    .timetable th, .timetable td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+        font-size: 2.5vw;
+    }
+
+    .timetable th {
+        background-color: #f0f0f0;
+    }
+</style>
+
+<html lang="ko" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>planetariumtable</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="rotate">
+                <!--시계-->
+                <div id="watch" class="border">
+                    <div class="datetime fs-info1">
+                    <div id="date"></div>
+                    <div id="time" class="time"></div>
+                    </div>
+                </div>
+                <!--제목-->
+                <div id="theme" class="border">
+                    <div class="fs-title">천체투영관 운영시간</div>
+                </div>
+                <!--닫기버튼-->
+                <div id="close" class="border">
+                    <div>
+                        <a href="#" onclick="history.back(); return false;" class="fs-info1">닫기</a>
+                    </div>
+                </div>
+                <!--프로그램정보-->
+                <div id="timetable-container" class="border"></div>
+                <!--하단정보-->
+                <div id="info2" class="border">
+                    <div class="fs-info2">＊ 만 5세 이상부터 입장(시낭송, 음악회는 만 7세 이상)</div>
+                    <div class="fs-info2">＊ 프로그램 시작하면 출입 절대 불가</div>
+                    <div class="fs-info2">＊ 프로그램 시작하면 녹화 및 사진 촬영 불가</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+
+    function setClock() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var weekNames = ["일", "월", "화", "수", "목", "금", "토"];
+        var weekNames_en = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var week = weekNames[date.getDay()];
+        var week_en = weekNames_en[date.getDay()];
+        var hour = modifyNumber(date.getHours());
+        var min = modifyNumber(date.getMinutes());
+        var sec = modifyNumber(date.getSeconds());
+
+        document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
+        document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
+    }
+
+    function modifyNumber(time) {
+        if (parseInt(time) < 10) {
+            return "0" + time;
+        }
+        else
+            return time;
+    }
+
+function loadCSV() {
+    fetch('data/planetariumtable.csv')
+        .then(response => response.text())
+        .then(csvData => {
+            const lines = csvData.trim().split('\n');
+            const header = lines[0].split(',');
+            const data = lines.slice(1).map(line => {
+                const values = line.split(',');
+                return header.reduce((obj, key, index) => {
+                    obj[key] = values[index];
+                    return obj;
+                }, {});
+            });
+
+            const currentMonth = new Date().getMonth() + 1;
+            const monthlyData = data.find(row => parseInt(row.month) === currentMonth);
+
+            if (monthlyData) {
+                const timetableContainer = document.getElementById('timetable-container');
+                timetableContainer.innerHTML = '';
+                const timetable = document.createElement('table');
+                timetable.classList.add('timetable');
+
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                const headers = ['회차', '시간', '프로그램'];
+                headers.forEach(text => {
+                    const th = document.createElement('th');
+                    th.textContent = text;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                timetable.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                let round = 1; // 회차 번호
+                for (let i = 15; i <= 21; i++) {
+                    const timeKey = `${i}time`;
+                    const proKey = `${i}pro`;
+
+                    if (monthlyData[timeKey] && monthlyData[timeKey] !== '' && monthlyData[proKey] && monthlyData[proKey] !== '-') {
+                        const row = document.createElement('tr');
+                        const roundCell = document.createElement('td');
+                        roundCell.textContent = round++;
+                        const timeCell = document.createElement('td');
+                        timeCell.textContent = monthlyData[timeKey];
+                        const proCell = document.createElement('td');
+                        proCell.textContent = monthlyData[proKey];
+
+                        row.appendChild(roundCell);
+                        row.appendChild(timeCell);
+                        row.appendChild(proCell);
+                        tbody.appendChild(row);
+                    }
+                }
+                timetable.appendChild(tbody);
+                timetableContainer.appendChild(timetable);
+            } else {
+                const timetableContainer = document.getElementById('timetable-container');
+                timetableContainer.textContent = `${currentMonth}월의 운영 시간표 정보가 없습니다.`;
+            }
+        })
+        .catch(error => {
+            console.error('CSV 파일을 불러오는 데 실패했습니다:', error);
+            const timetableContainer = document.getElementById('timetable-container');
+            timetableContainer.textContent = '운영 시간표 정보를 불러오는 데 실패했습니다.';
+        });
+}
+
+window.onload = function () {
+    loadCSV();
+    setClock();
+    setInterval(setClock, 1000);
+}
+
+</script>
