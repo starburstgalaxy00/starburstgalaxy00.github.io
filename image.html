@@ -45,6 +45,25 @@
       object-fit: contain; /* 이미지 비율 유지하며 꽉 채우기 */
       border: none; /* 테두리 제거 (선택 사항) */
     }
+
+    .object-list {
+      margin-top: 20px;
+      display: grid;
+      max-width:50%;
+      grid-template-columns: repeat(4,1fr);
+      gap: 1em;
+    }
+
+    .object-list a {
+      text-decoration: none;
+      color: black;
+      padding: 0.3em 0; /* 위아래 패딩으로 시각적 간격 확보 */
+    }
+
+    .object-list a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 
@@ -90,40 +109,9 @@
         <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
       </div>
 
-    <label>관측대상을 선택해주세요.</label><br>
-      <select id="objectName">
-       <option value="">관측대상을 불러오는 중...</option>
-     </select><br>
-      
-    <button onclick="goToNextPage()">관측대상 정보 보기</button>
-      <!--section>
-        <h2>관측 대상</h2>
-        <section>
-          <h3>태양계</h3>
-          <div class="image-links">
-            <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
-            <a href="#" onclick="showImage('images/jupiter.jpg', '목성')">목성</a>
-            <a href="#" onclick="showImage('images/moon_crescent.jpg', '초승달')">초승달</a>
-            <a href="#" onclick="showImage('images/moon_gibbous.jpg', '볼록달')">볼록달</a>
-          </div>
-        </section>
-
-        <section>
-          <h3>별</h3>
-          <div class="image-links">
-            <a href="#" onclick="showImage('images/arcturus.jpg', '아크투루스')">아크투루스</a>
-            <a href="#" onclick="showImage('images/algieba.jpg', '알기에바')">알기에바</a>
-          </div>
-        </section>
-
-        <section>
-          <h3>딥스카이</h3>
-          <div class="image-links">
-            <a href="#" onclick="showImage('images/praesepe.jpg', '프레세페')">프레세페</a>
-          </div>
-        </section>
-      </section-->
-    </header>
+      <h2>관측대상</h2>
+      <div id="objectList" class="object-list">
+        </div>
 
     <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
       <button onclick="closeImageViewer(event)">닫기</button>
@@ -162,6 +150,7 @@
   <script>
     // CSV 파일 경로
     const csvPath = "data/observationtable.csv";
+    const objectListDiv=document.getElementById("objectList");
 
     // CSV 파일 불러오기
     async function loadCSV() {
@@ -169,45 +158,58 @@
         const response = await fetch(csvPath);
         if (!response.ok) throw new Error("데이터 파일을 불러올 수 없습니다.");
         const data = await response.text();
-        updateDropdown(data);
+        updateObjectList(data);
       } catch (error) {
         alert(error.message);
       }
     }
-
-    // 드롭다운 업데이트
-    function updateDropdown(data) {
-      const dropdown = document.getElementById("objectName");
-      dropdown.innerHTML = "";
+    // 관측 대상 목록 업데이트
+    function updateObjectList(data) {
+      objectListDiv.innerHTML = ""; // 기존 내용 비우기
 
       const lines = data.split(/\r?\n/); // CSV 데이터를 줄 단위로 분리
+      const objectNames = [];
 
-      for (let i = 1; i<lines.length; i++) { // 첫 번째 줄 건너뜀(헤더)
+      for (let i = 1; i < lines.length; i++) { // 첫 번째 줄 건너뜀(헤더)
         const line = lines[i].trim();
         if (line) {
           const columns = line.split(","); // 첫 번째 열만 추출
-          const firstColumn = columns[0];
-
-          if (firstColumn) { // 빈 문자열이 아닐 때만 추가
-            const option = document.createElement("option");
-            option.value = firstColumn;
-            option.textContent = firstColumn;
-            dropdown.appendChild(option);
+          const objectName = columns[0];
+          if (objectName) {
+            objectNames.push(objectName);
           }
         }
       }
+
+      // --------< 정렬 및 출력 >--------
+      objectNames.sort((a, b) => a.localeCompare(b, 'ko')); // 가나다 순으로 정렬
+
+      let output = "";
+      objectNames.forEach(objectName => {
+        output += `<a href="#" onclick="goToNextPageWithName('${objectName}')">${objectName}</a>`;
+      });
+      objectListDiv.innerHTML = output;
+      // --------< 정렬 및 출력 끝 >--------
     }
 
-    // 다음 페이지 넘어가기
-    function goToNextPage() {
-      const objectName = encodeURIComponent(document.getElementById("objectName").value);
-      if (!objectName) {
-        alert("관측 대상을 선택하세요.");
-        return;
-      }
-      const url = `test.html?object_name=${objectName}`;
+    // 다음 페이지 넘어가기 (선택된 이름 포함)
+    function goToNextPageWithName(objectName) {
+      const encodedObjectName = encodeURIComponent(objectName);
+      const url = `information.html?object_name=${encodedObjectName}`;
       window.location.href = url;
     }
+
+    // // 다음 페이지 넘어가기 (버튼 클릭 시 목록의 첫 번째 항목 정보로 이동)
+    // function goToNextPage() {
+    //   const firstLink = objectListDiv.querySelector("a");
+    //   if (firstLink) {
+    //     const objectName = encodeURIComponent(firstLink.textContent);
+    //     const url = `test.html?object_name=${objectName}`;
+    //     window.location.href = url;
+    //   } else {
+    //     alert("관측 대상 목록이 없습니다.");
+    //   }
+    // }
 
     window.onload = loadCSV;
   </script>
