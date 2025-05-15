@@ -1,5 +1,56 @@
 <!DOCTYPE HTML>
 
+<style>
+    * {
+      padding: px;
+      margin: 1vw;
+    }
+
+    body {
+      background-color: white;
+      color: black;
+      overflow: hidden;
+      width: 99vw;
+      height: 98vh;
+    }
+
+    /* .border {
+      border: 2px solid red;
+    }
+
+    .border2 {
+      border: 2px solid rgb(0, 255, 0);
+    }
+
+    .border3 {
+      border: 10px solid rgb(0, 0, 255);
+    } */
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 98vw; 
+      height: 98vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+    }
+
+    .rotate {
+      transform: rotate(-90deg);
+      transform-origin: center center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* width: 99vh; */
+      height: 98vw;
+    }
+
+</style>
+
 <html lang="ko">
 
 <head>
@@ -9,8 +60,9 @@
  
 </head>
 
-<body>
-  <div>
+<body class="border">
+  <div class="container border2">
+  <div class="rotate border3">
     <!-- home -->
     <section id="home">
       <div>
@@ -33,7 +85,7 @@
         </p>
   
         <div>
-          <a href="https://starburstgalaxy.tistory.com/" target="_blank">
+          <a href="https://starburstgalaxy.tistory.com/" target="_blank">blog
           </a>
         </div>
       </div>
@@ -47,9 +99,7 @@
       <div>
         <a href="#" class="logo"></a>
         <nav role="navigation">
-          <ul>
-            <li><a href="image.html">관측대상</a></li>
-          </ul>
+          <a href="image.html">관측대상</a>
         </nav>
       </div>
 
@@ -59,9 +109,7 @@
       <div>
         <a href="#" class="logo"></a>
         <nav role="navigation">
-          <ul>
-            <li><a href="planetariumtable.html">시간표</a></li>
-          </ul>
+          <a href="timetable_planetarium.html">투영관시간표</a>
         </nav>
       </div>
 
@@ -71,24 +119,20 @@
       <div>
         <a href="#" class="logo"></a>
         <nav role="navigation">
-          <ul>
-            <!--li><a href="dailydata.html">일일정산(방문인원, 금액)</a></li-->
-            <li><a href="timetable_summer(exhibition).html">전시실시간표(하계)</a></li>
-          </ul>
+          <!-- <a href="dailydata.html">일일정산(방문인원, 금액)</a> -->
+          <a href="timetable_exhibition.html">전시실시간표</a>
         </nav>
       </div>
 
     <hr>
       
-      <h2>Site.</h2>
+      <h2>Site</h2>
       <div>
         <a href="#" class="logo"></a>
         <nav role="navigation">
-          <ul>
-            <li><a href="https://djstar.kr/" target="_blank">홈페이지</a></li>
-            <li><a href="https://www.youtube.com/@daejeonobservatory" target="_blank">유튜브</a></li>
-            <li><a href="https://www.instagram.com/daejeonobservatory/" target="_blank">인스타그램</a></li>
-          </ul>
+          <a href="https://djstar.kr/" target="_blank">홈페이지</a>
+          <a href="https://www.youtube.com/@daejeonobservatory" target="_blank">유튜브</a>
+          <a href="https://www.instagram.com/daejeonobservatory/" target="_blank">인스타그램</a>
         </nav>
       </div>
     </header>
@@ -102,6 +146,7 @@
         </a>&copy; 2025 HongjuKwon. All Rights Reserved.
       </address>
     </footer>
+  </div>
   </div>
 </body>
 
