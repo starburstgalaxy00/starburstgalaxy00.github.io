@@ -5,6 +5,53 @@
   <meta charset="UTF-8">
   <title>ObservableImages</title>
   <style>
+    * {
+      padding: ;
+      margin: 0.1vw;
+    }
+
+    body {
+      background-color: white;
+      color: black;
+      overflow: hidden;
+      width: 99vw;
+      height: 98vh;
+    }
+
+    /* .border {
+      border: 2px solid red;
+    }
+
+    .border2 {
+      border: 2px solid rgb(0, 255, 0);
+    }
+
+    .border3 {
+      border: 10px solid rgb(0, 0, 255);
+    } */
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 98vw; 
+      height: 98vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+    }
+
+    .rotate {
+      transform: rotate(-90deg);
+      transform-origin: center center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* width: 99vh; */
+      height: 98vw;
+    }
     #objectName {
       width: 200px;
       height: 20px;
@@ -49,14 +96,14 @@
     .object-list {
       margin-top: 20px;
       display: grid;
-      max-width:50%;
-      grid-template-columns: repeat(6,1fr);
+      max-width:90vh;
+      grid-template-columns: repeat(auto-fit,minmax(13vh,1fr)); 
       gap: 1em;
     }
 
     .object-list a {
       text-decoration: none;
-      color: black;
+      color: green;
       padding: 0.3em 0; /* 위아래 패딩으로 시각적 간격 확보 */
     }
 
@@ -67,64 +114,50 @@
   </style>
 </head>
 
-<body>
-  <div id="wrap">
+<body class="border">
+  <div class="container border2">
+    <div class="rotate">
 
-    <section id="home">
-      <div class="container">
-        <h1>Images</h1>
-      </div>
-    </section>
+      <h1>Images</h1>
 
-    <section id="contact" class="wow fadeIn" data-wow-delay="100ms">
-      <div></div>
+      <section style="margin:1vw" data-wow-delay="100ms">
+        <div>
+          <p>필요한 이미지가 있을 경우 말씀해주세요.<br>starburstgalaxy00@gmail.com</p>
+        </div>
+      </section>
 
-      <div>
-        <p>
-          필요한 이미지가 있을 경우 말씀해주세요.<br>
-          starburstgalaxy00@gmail.com
-        </p>
-      </div>
-    </section>
+
+      <a href="index.html">뒤로가기</a>
 
     <hr>
 
-    <header>
-      <div class="container">
-        <a href="#" class="logo"></a>
-        <nav role="navigation">
-          <li><a href="index.html">뒤로가기</a></li>
-        </nav>
-      </div>
-
-      <section>
-        <h2>관측 여부</h2>
-        <div class="image-links">
+      <h2>관측 여부</h2>
+        <div class="image-links" style="margin:1vw">
           <a href="#" onclick="showImage('images/info(able_to_observe).jpg', '관측가능')">관측 가능</a>
           <a href="#" onclick="showImage('images/info(unable_to_observe).jpg', '관측불가능')">관측 불가능</a>
         </div>
-      </section>
-    <h2>관측대상</h2>
-      <div class="image-links">
-        <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
-      </div>
-
-      <div id="objectList" class="object-list">
-        </div>
-
-    <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
-      <button onclick="closeImageViewer(event)">닫기</button>
-      <img id="displayedImage" src="" alt="">
-    </div>
 
     <hr>
 
-    <footer>
+      <h2>관측대상</h2>
+        <div class="image-links">
+          <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
+        </div>
+
+        <div id="objectList" class="object-list border"></div>
+
+        <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
+        <button onclick="closeImageViewer(event)">닫기</button>
+        <img id="displayedImage" src="" alt="">
+        </div>
+
+    <hr>
+
       <address>
-        <a href="https://shaula0.github.io/" style="text-decoration: underline;">도움을 주신 분: 정재영(shaula@mensakorea.org)<br>
-        </a>&copy; 2025 HongjuKwon. All Rights Reserved.
+        <a href="https://shaula0.github.io/" style="text-decoration: underline;">도움을 주신 분: 정재영(shaula@mensakorea.org)<br></a>
+        &copy; 2025 HongjuKwon. All Rights Reserved.
       </address>
-    </footer>
+    </div>
   </div>
 
   <script>
@@ -194,7 +227,7 @@
     // 다음 페이지 넘어가기 (선택된 이름 포함)
     function goToNextPageWithName(objectName) {
       const encodedObjectName = encodeURIComponent(objectName);
-      const url = `information.html?object_name=${encodedObjectName}`;
+      const url = `information_observable.html?object_name=${encodedObjectName}`;
       window.location.href = url;
     }
 
