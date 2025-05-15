@@ -35,8 +35,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 98vw; 
-      height: 98vh;
+      width: 100vw; 
+      height: 100vh;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -50,7 +50,7 @@
       flex-direction: column;
       justify-content: center;
       /* width: 99vh; */
-      height: 98vw;
+      height: 100vw;
     }
     #objectName {
       width: 200px;
@@ -60,12 +60,13 @@
     /* 기존 스타일 유지 */
     .image-viewer {
       position: fixed; /* 화면 고정 */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 50vw;
+      left: 50vh;
+      transform: translate(-54%, -50.4%) rotate(90deg);
+      width: 100vw;
+      height: 100vh;
       background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
-      display: none; /* 숨김 처리 */
+      display: flex; /* 숨김 처리 */
       justify-content: center; /* 가로 중앙 정렬 */
       align-items: center; /* 세로 중앙 정렬 */
       flex-direction: column; /* 버튼과 이미지 세로 배치 */
@@ -74,16 +75,16 @@
 
     .image-viewer button {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 20px;
+      top: 1vw;
+      left: 2vh;
+      /* padding: 10px 20px; */
       background-color: rgba(255, 255, 255, 0.5);
       color: black;
       border: none;
       cursor: pointer;
       font-size: 16px;
       z-index: 1001; /* 이미지 뷰어 배경보다 높게 */
-      transform: rotate(-90deg); /* 처음부터 반시계 방향으로 90도 회전 */
+      transform: rotate(-90deg);
     }
 
     .image-viewer img {
@@ -132,7 +133,7 @@
     <hr>
 
       <h2>관측 여부</h2>
-        <div class="image-links" style="margin:1vw">
+        <div style="margin:1vw">
           <a href="#" onclick="showImage('images/info(able_to_observe).jpg', '관측가능')">관측 가능</a>
           <a href="#" onclick="showImage('images/info(unable_to_observe).jpg', '관측불가능')">관측 불가능</a>
         </div>
@@ -140,13 +141,13 @@
     <hr>
 
       <h2>관측대상</h2>
-        <div class="image-links">
+        <div>
           <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
         </div>
 
         <div id="objectList" class="object-list border"></div>
 
-        <div id="imageViewer" class="image-viewer" onclick="closeImageViewer(event)">
+        <div id="imageViewer" class="image-viewer border3" onclick="closeImageViewer(event)">
         <button onclick="closeImageViewer(event)">닫기</button>
         <img id="displayedImage" src="" alt="">
         </div>
