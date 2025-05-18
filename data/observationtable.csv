@@ -10,7 +10,7 @@ M39,M39,산개성단(Open Cluster),백조자리(Cygnus),1010광년(ly),4.6,별�
 미자르 & 알코르,Mizar & Alcor,다중성계(Multiple Star System),큰곰자리(Ursa Major),82광년(ly),2,가까이 있어 시력이 좋으면 맨눈으로 구별할 수 있는 별,,,
 베가,Vega,항성(Star),거문고자리(Lyra),25광년(ly),0,표면온도 9600정도의 청백색 별,,,
 베텔기우스,Betelgeuse,항성(Star) / 적색거성(Red Giant),오리온자리(Orion),700광년(ly),0.5,표면온도가 3000도 정도로 낮아 붉은 별,,,
-달(볼록달),Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_gibbous.jpg,권홍주,대전시민천문대
+달(볼록달),Moon,위성(Natural Satellite),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_gibbous.jpg,권홍주,대전시민천문대
 북극성,Polaris,항성(Star),작은곰자리(Ursa Minor),433광년(ly),2,일반적인 인식과는 다르게 조금 어두운 2등급의 항성,,,
 수성,Mercury,행성(Planet),태양계 1번째 행성,0.387AU,-2.0 ~ 5.5 (거리에 따른 변화),위상의 변화를 볼 수 있는 행성,,,
 스피카,Spica,항성(Star),처녀자리(Virgo),250광년(ly),0.97,표면온도 22400도 정도의 청백색 별,,,
@@ -26,7 +26,7 @@ M39,M39,산개성단(Open Cluster),백조자리(Cygnus),1010광년(ly),4.6,별�
 오리온대성운,M42(Orion Nebula),발광성운(Emission Nebula),오리온자리(Orion),1500광년(ly),4,우주에 존재하는 가스와 먼지 덩어리인 천체,M42.jpg,권홍주,대전시민천문대
 옷걸이성단,Cr399(Brocchi's Cluster),성군(Asterism),여우자리(Vulpecula),성군은 특정 거리에 놓여있지 않다.,3.6,10개의 별이 같은 방향에 놓여 옷걸이처럼 보인다.,,,
 이중성단,NGC869/884(Double Cluster),산개성단(Open Cluster),페르세우스자리(Perseus),7500광년(ly),3.7,2개의 산개성단이 짝을 이루고 있는 천체,,,
-달(초승달),Moon,위성(Moon),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_crescent.jpg,권홍주,대전시민천문대
+달(초승달),Moon,위성(Natural Satellite),지구의 위성,380000km,-12,가장 가까운 천체로 달의 지형이 선명하게 관측된다.,moon_crescent.jpg,권홍주,대전시민천문대
 카스토르,Castor,항성(Star),쌍둥이자리(Gemini),50광년(ly),1.5,2개의 별이 짝을 이뤄 공전하는 천체,,,
 카펠라,Capella,항성(Star),마차부자리(Auriga),43광년(ly),0.1,표면온도 5000도 정도로 노란 별,,,
 토성,Saturn,행성(Planet),태양계 6번째 행성,9.56AU,0.46,거대하고 뚜렷한 고리가 관측되는 행성,saturn.jpg,권홍주,대전시민천문대

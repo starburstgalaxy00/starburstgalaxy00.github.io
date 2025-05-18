@@ -75,7 +75,7 @@
 
     #info { /*관측대상정보*/
         position: fixed;
-        top: 54%;
+        top: 51%;
         width: 90vh;
         height: 45vw;
         text-align: left;
@@ -98,7 +98,8 @@
     .datetime {font-size: 60px;}
 
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
-    .fs-info2 {font-size: 2.5vw;} /*설명*/
+    .fs-info2 {font-size: 2.3vw;} /*설명*/
+    .fs-info3 {font-size: 1.5vw;} /*설명*/
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
     .fs-title {font-size: 5.5vw;} /*메인이름*/
 
@@ -149,11 +150,17 @@
 
                 <!--관측대상정보-->
                 <div id="info" class="border">
-                    <div class="fs-info2">관측대상 정보</div>
                     <li class="pt-info2 fs-info2">분류: <span id="classification"></span></li>
                     <li class="pt-info2 fs-info2">위치: <span id="location"></span></li>
                     <li class="pt-info2 fs-info2">거리: <span id="distance"></span></li>
+                    <div class="pt-info2 fs-info3">
+                        - AU: 약 150,000,000km, 태양에서 지구까지의 거리 / Astronomical Unit<br>
+                        - ly: 약 9,500,000,000,000km, 빛이 1년동안 간 거리 / light year
+                    </div>
                     <li class="pt-info2 fs-info2">등급: <span id="apparent_magnitude"></span></li>
+                    <div class="pt-info2 fs-info3">
+                        - 등급: 별의 밝기를 나타내는 단위로 작을수록 밝다.<br>
+                    </div>
                     <li class="pt-info2 fs-info2">특징 <br> <span id="feature"></span></li>
                 </div>
             </div>

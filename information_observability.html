@@ -1,0 +1,146 @@
+<!-- 대전시민천문대 시간표 -->
+
+<!DOCTYPE html>
+
+<style>
+    * {
+        padding: 0vw;
+        margin: 0vw;
+    }
+
+    body {
+        background-color: black;
+        color: white;
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vh;
+        height: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rotate {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .fs1 {
+        font-size: 8vh;
+        font-weight: 600;
+    }
+    .fs2 {
+        font-size: 6vh;
+        font-weight: 400;
+        color: rgb(202, 202, 202);
+    }
+    .fs3 {
+        font-size: 4vh;
+        font-weight: 500;
+        color: ;
+    }
+
+    #close { /*닫기버튼 위치*/
+      background-color: #303030;
+      color:black;
+      position: fixed;
+      transform: translate(-50%,0);
+      top: 0%;
+      left: 96%;
+      text-align: center;
+    }
+
+</style>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>TimeTable</title>
+    </head>
+
+    <body>
+        <div class="container" style="display:none">
+            <div class="rotate">
+                <!--닫기버튼-->
+                <div id="close" class="border">
+                    <div>
+                        <a href="#" onclick="history.back(); return false;" class="fs-info1">닫기</a>
+                    </div>
+                </div>
+                <div class="fs1">날씨가 좋지 않아<br>관측을 할 수 없습니다.</div>
+                <div class="fs2">Bad Weather Conditions<br> - Dome Closed -</div>
+            </div>
+        </div>
+        <div class="container" style="display:none">
+            <div class="rotate">
+                <!--닫기버튼-->
+                <div id="close" class="border">
+                    <div>
+                        <a href="#" onclick="history.back(); return false;" class="fs-info1">닫기</a>
+                    </div>
+                </div>
+                <div class="fs1">오른쪽으로 줄서서<br><span style="color:yellow;">순서대로</span> 관측해 주세요.</div>
+                <div class="fs2">Please Line Up Here</div>
+                <div style="font-size:60vh; padding:">→</div>
+                <div class="fs3">
+                    <span style="font-size:4vw; color:yellow;">※주의사항</span><br>
+                    1. 망원경 잡지 않고 눈으로만 관측<br>
+                    2. 렌즈에 대고 촬영 금지<br>
+                    3. 플래시 사용 금지<br>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // URL 파라미터에서 'condition' 값을 읽어오는 함수
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // 'condition' 파라미터 값을 가져옵니다.
+        const condition = getParameterByName('condition');
+
+        // 두 개의 container 요소를 가져옵니다.
+        const container1 = document.querySelector('.container:nth-child(1)'); // 날씨 안 좋을 때
+        const container2 = document.querySelector('.container:nth-child(2)'); // 관측 안내
+
+        // condition 값에 따라 컨테이너를 보여주거나 숨깁니다.
+        if (condition === 'bad') {
+            container1.style.display = 'block'; // 보이게 함
+            container2.style.display = 'none';  // 숨김
+        } else if (condition === 'good') {
+            container1.style.display = 'none';  // 숨김
+            container2.style.display = 'block'; // 보이게 함
+        } else {
+            // condition 값이 없을 경우, 기본적으로 보여줄 컨테이너를 설정하거나
+            // 둘 다 숨기고 사용자에게 선택을 유도하는 등의 처리를 할 수 있습니다.
+            // 여기서는 일단 두 번째 컨테이너(관측 안내)를 기본으로 보여주겠습니다.
+            container1.style.display = 'none';
+            container2.style.display = 'block';
+        }
+    });
+</script>
