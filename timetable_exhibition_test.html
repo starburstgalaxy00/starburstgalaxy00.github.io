@@ -42,17 +42,21 @@
     }
 
     .time {font-weight: bold; color: yellow;}
-
+    
+    .table {
+        position:fixed;
+        top: 50vw;
+        left: 50vh;
+        transform: translate(-50%, -50%);
+        width: 98vh;
+        height: 90vw;
+    }
     .datetime {
         position:absolute;
         top: 1vw;
         font-size: 1vw;}
 
-    .current {
-        position:fixed;
-        top:1vw;
-        font-size: 3vw; }
-    .current-title {font-size: 120px; color: yellow;}
+    .current-title {font-size: 100px; color: yellow;}
 
     .alltimes {font-size: 40px;}
     .alltimes-title {font-size: 60px;}
@@ -60,31 +64,117 @@
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
     .alltimes > p {font-size: 32px; color: #adadad;}
 
-    .pt-40 {padding-top: 40px;}
-    .pt-200 {padding-top: 200px;}
-    .pt-260 {padding-top: 260px;}
+    .pt-10 {padding-top: 1vw;}
+
+    .fs-20 {font-size: 3vh;}
+
+    .border1 {
+        border: 1px solid red;
+    }
+
+    .border2 {
+        border: 1px solid blue;
+    }
 </style>
 
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title>TimeTable</title>
+        
+        <!--자동새로고침-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="1800">
     </head>
 
     <body>
-        <div class="container">
-            <div class="rotate">
-                <div class="datetime">
+        <div class="container border">
+            <div class="rotate border2">
+                <div class="datetime border1">
                     <div id="date"></div>
                     <div id="time" class="time"></div>
                 </div>
-                <div class="current pt-260 border">
-                    <div>< 지금 시각 프로그램 ></div>
-                    <p>< Current Program ></p>
-                    <div id="current_pg" class="pt-40 current-title"></div>
-                    <p id="current_pg_en"></p>
-                    <div id="current_pg_sub" class="pt-40"></div>
-                    <p id="current_pg_en_sub"></p>
+                <div class="table border1">
+                    <div style="font-size:3vh;">< 지금 이용 가능한 프로그램 ></div>
+                    <p style="font-size:2.5vh;">< Current Program ></p>
+                    <div id="current_pg" class="pt-10 current-title"></div>
+                    <p id="current_pg_en" style="font-size:4vh;"></p>
+                    <div id="current_pg_sub" style=" padding-top: 2vw; font-size:5vh;"></div>
+                
+                    <hr style="border: none; border-top:2px solid grey; margin:1vw;">
+
+                    <div id="" class="">
+                    <div class="fs-20 pt-10">생일을 입력해주세요.</div>
+                    <div class="input-group">
+                        <label for="birthdate"></label>
+                        <input type="text" id="birthdate" maxlength="8" placeholder="yyyy/mm/dd (년/월/일)" oninput="checkBirthdate()">
+                    </div>
+
+                    <div id="resultMessage">
+                        </div>
+                    
+                    <script>
+                        function checkBirthdate() {
+                            const birthdateInput = document.getElementById('birthdate');
+                            const birthdateValue = birthdateInput.value.trim(); // 입력값 앞뒤 공백 제거
+                            const resultMessageDiv = document.getElementById('resultMessage');
+
+                            // 입력값이 비어있을 경우 메시지 초기화
+                            if (birthdateValue === '') {
+                                resultMessageDiv.textContent = '';
+                                resultMessageDiv.className = '';
+                                return; // 함수 실행 중단
+                            }
+
+                            // 1. 입력 값 유효성 검사 (8자리 숫자인지 확인)
+                            const birthdateRegex = /^\d{8}$/;
+
+                            if (!birthdateRegex.test(birthdateValue)) {
+                                resultMessageDiv.textContent = '입력 중...';
+                                resultMessageDiv.className = 'error';
+                                return;
+                            }
+
+                            // 2. 연, 월, 일 분리
+                            const year = parseInt(birthdateValue.substring(0, 4), 10);
+                            const month = parseInt(birthdateValue.substring(4, 6), 10);
+                            const day = parseInt(birthdateValue.substring(6, 8), 10);
+
+                            // 3. 실제 유효한 날짜인지 추가 검증
+                            const dateObject = new Date(year, month - 1, day);
+                            if (dateObject.getFullYear() !== year || dateObject.getMonth() !== month - 1 || dateObject.getDate() !== day) {
+                                resultMessageDiv.textContent = '유효하지 않은 날짜입니다. 정확한 생년월일을 입력해주세요.';
+                                resultMessageDiv.className = 'error';
+                                return;
+                            }
+
+                            // 4. 조건에 따른 메시지 노출
+                            let message = '';
+                            resultMessageDiv.className = ''; // 기존 오류 스타일 초기화
+
+                            // 예시 조건: 특정 연도 (1993년생)
+                            if (month === 11 ) {
+                                message = `안녕하세요, ${year}년생이시군요! 특별한 해에 태어나셨네요.`;
+                            }
+                            // 예시 조건: 특정 월 (11월생)
+                            else if (month === 11) {
+                                message = `11월에 태어나셨군요! 가을의 정취를 느끼며 성장하셨겠어요.`;
+                            }
+                            // 예시 조건: 특정 날짜 (예: 1993년 11월 26일) - 가장 구체적인 조건을 먼저!
+                            else if (year === 1993 && month === 11 && day === 26) {
+                                message = `와우! 정확히 ${year}년 ${month}월 ${day}일에 태어나셨군요! 정말 반가워요!`;
+                            }
+                            // 다른 모든 경우 (기본 메시지)
+                            else {
+                                message = `입력하신 생일은 ${year}년 ${month}월 ${day}일 입니다.`;
+                            }
+
+                            // 5. 결과 메시지 표시
+                            resultMessageDiv.textContent = message;
+                        }
+                    </script>
+                </div>
                 </div>
             </div>
         </div>
