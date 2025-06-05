@@ -68,13 +68,19 @@
 
     .fs-20 {font-size: 3vh;}
 
-    .border1 {
+    #birthdate {
+        width: 30vh;
+        height: 3vw;
+        font-size: 3vh;
+    }
+
+    /* .border1 {
         border: 1px solid red;
     }
 
     .border2 {
         border: 1px solid blue;
-    }
+    } */
 </style>
 
 <html lang="en" dir="ltr">
@@ -104,11 +110,11 @@
                 
                     <hr style="border: none; border-top:2px solid grey; margin:1vw;">
 
-                    <div id="" class="">
-                    <div class="fs-20 pt-10">생일을 입력해주세요.</div>
+                    <div class="pt-10" style="font-size:9vh;">생일을 입력해주세요.</div>
+                    <div>예시: 20250101</div>
                     <div class="input-group">
                         <label for="birthdate"></label>
-                        <input type="text" id="birthdate" maxlength="8" placeholder="yyyy/mm/dd (년/월/일)" oninput="checkBirthdate()">
+                        <input type="text" id="birthdate" maxlength="8" placeholder="yyyymmdd (년/월/일)" oninput="checkBirthdate()">
                     </div>
 
                     <div id="resultMessage">
@@ -174,7 +180,6 @@
                             resultMessageDiv.textContent = message;
                         }
                     </script>
-                </div>
                 </div>
             </div>
         </div>
