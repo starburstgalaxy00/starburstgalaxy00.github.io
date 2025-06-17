@@ -3,7 +3,7 @@ UVI,UV,365/283nm,SO_2,,akatsuki,orbiter,https://darts.isas.jaxa.jp/missions/akat
 IR1,IR,0.9/0.97/1.01micron,,surface/atmosphere,akatsuki,orbiter,https://darts.isas.jaxa.jp/missions/akatsuki/index_en.html
 IR2,IR,1.74/2.26/2.32micron,CO_2/CO,altitude35_50km,akatsuki,orbiter,https://darts.isas.jaxa.jp/missions/akatsuki/index_en.html
 LIR,IR,8/12micron,,CloudTop,akatsuki,orbiter,https://darts.isas.jaxa.jp/missions/akatsuki/index_en.html
-OCPP,UV,_,,WindspeedAtTheCloudLevel,pioneer,orbiter,
+OCPP,UV,_,,WindspeedAtTheCloudLevel,pioneer,orbiter,https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1978-051A-06
 OPA,,_,,SolarWindPlasma,pioneer,orbiter,https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1978-051A-18
 OETP,,_,,UpperAtmosphereAndIonosphereOfVenus,pioneer,orbiter,https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1978-051A-01
 OIMS,,_,,IonosphereOfVenus,pioneer,orbiter,https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1978-051A-17
