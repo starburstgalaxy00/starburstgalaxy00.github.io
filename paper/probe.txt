@@ -1,0 +1,6 @@
+wavelength1,wavelength2,wavelength3,wavelength4,name,classification
+UV,UVI,365/283nm,SO_2,akatsuki,orbiter
+IR,IR1,0.9/0.97/1.01micron,surface/atmosphere,akatsuki,orbiter
+IR,IR2,1.74/2.26/2.32micron,CO_2/CO/altitude35_50km,akatsuki,orbiter
+IR,LIR,8/12micron,cloud-top,akatsuki,orbiter
+UV,OCPP,_,windspeed_at_the_cloud_level,akatsuki,orbiter
