@@ -2,4 +2,4 @@ author,name,theme,number,classification,link
 YeonJooLee,VenusCloudAlbedoScenario,AlbedoScenario,1907.09683v1,theory,paper/1907.09683v1 (venus cloud albedo scenario).pdf
 S.Lebonnois,VCD_v2.3,Dataset,,dataset,paper/ddd_vcd_2.3 (VCD v2.3).pdf
 MasatoNakamura,OverviewOfVenusOrbiter_Akatsuki,Orbiter,,dataset,paper/Overview_of_Venus_orbiter_Akatsuki.pdf
-RossowWilliamB,CloudTrackedWindsFromPioneer,0022-4928,Wind,theory,paper/atsc-1520-0469_1990_047_2053_ctwfvo_2_0_co_2.pdf
+RossowWilliamB,CloudTrackedWindsFromPioneer,Wind,0022-4928,theory,paper/atsc-1520-0469_1990_047_2053_ctwfvo_2_0_co_2.pdf
