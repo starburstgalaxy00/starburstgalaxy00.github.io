@@ -38,6 +38,8 @@
 9. 주소 확인
   > ip a | grep inet | grep -v 127.0.0.1 | grep -v inet6 | awk '{print $2}' | cut -d/ -f1
 
+  (ssh 실행 상태 확인)  > sudo service ssh status
+  (방화벽 상태 확인)    > sudo ufw status verbose
 
 10. 접속
   > ssh username@ip -p port
