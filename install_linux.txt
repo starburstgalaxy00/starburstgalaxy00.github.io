@@ -43,3 +43,9 @@
 
 10. 접속
   > ssh username@ip -p port
+
+
+
++ 윈도우와 리눅스 사이의 포트포워딩
+  (확인) > netsh interface portproxy show all
+  (설정) > netsh interface portproxy add v4tov4 listenport=8763 listenaddress=0.0.0.0 connectport=8763 connectaddress=172.30.93.187
