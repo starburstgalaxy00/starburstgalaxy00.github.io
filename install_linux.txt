@@ -1,0 +1,43 @@
+1. WSL 설치
+  > wsl --install
+
+2. WSL와 함께 설치된 리눅스 배포판 확인
+  > wsl -l -v
+
+3. 기본으로 설치된 Ubuntu 삭제
+  > wsl -unregister Ubuntu
+
+4. Microsoft Store에서 희망하는 버전의 우분투 설치
+
+5. 미러 서버를 카카오로 변경
+  > $ cat /etc/apt/sources.list
+  > cat /etc/apt/sources.list.d/ubuntu.sources (24버전 이상에서)
+
+
+6. ssh 서버 설치
+  > sudo apt update
+  > sudo apt install openssh-server
+
+7. ssh 서비스 시작
+  > sudo service ssh start
+  > sudo systemctl enable ssh
+
+
+8. 포트 및 방화벽 설정
+  > sudo nano /etc/ssh/sshd_config 에서 Port 22 찾아 원하는 번호로 변경
+  (필요할 경우) > sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak)
+
+  > sudo ufw allow 2222/tcp #포트 허용
+  > sudo ufw reload #방화벽 규칙을 다시 로드
+
+  (필요할 경우) > sudo ufw enable #방화벽 활성화
+
+  > sudo ufw status verbose #방화벽 활성화 확인
+
+
+9. 주소 확인
+  > ip a | grep inet | grep -v 127.0.0.1 | grep -v inet6 | awk '{print $2}' | cut -d/ -f1
+
+
+10. 접속
+  > ssh username@ip -p port
