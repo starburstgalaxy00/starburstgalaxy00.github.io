@@ -54,20 +54,18 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
     photon_values=[]
     timestamps=[]
     
-    with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
-        s.settimeout(5)
-    
+    for i in range(n):
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
-            s.connect((IP,PORT))
-            print("connection success")
-            log("connection success")
-        except Exception as e:
-            log(f"ERROR: Connection failed - {e}")
-            raise
-    
-        for i in range(n):
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            try:
+            with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
+                s.settimeout(5)    
+                try:
+                    s.connect((IP,PORT))
+                    # print("connection success")
+                    # log("connection success")
+                except Exception as e:
+                    log(f"ERROR: Connection failed - {e}")
+                    continue
                 s.sendall(b'rx\r\n')
                 data=s.recv(1024)
                 if data:
@@ -88,17 +86,19 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
                             photon_values.append(photon)
                             timestamps.append(timestamp)
                         except ValueError:
-                            log(f"WARNING: Invalid brightness walue at iteration {i+1}")
+                            log(f"WARNING: Invalid brightness value at iteration {i+1}")
                 else:
                     msg=f"No data at iteration {i+1}"
                     print(f"WARNING: {msg}")
                     log(f"WARNING: {msg}")
-            except socket.timeout:
-                msg=f"Timeout at iteration {i+1}"
-                print(f"ERROR: {msg}")
-                log(f"ERROR: {msg}")
-                
-            time.sleep(timeinterval)
+        except socket.timeout:
+            msg=f"Timeout at iteration {i+1}"
+            print(f"ERROR: {msg}")
+            log(f"ERROR: {msg}")
+        except Exception as e:
+            log(f"ERROR: Unexpected error at iteration {i+1} - {e}")
+            
+        time.sleep(timeinterval)
     
     log(f"measurement completed({success_count}/{n})")
     print(f"measurement completed({success_count}/{n})")
