@@ -49,3 +49,7 @@
 + 윈도우와 리눅스 사이의 포트포워딩
   (확인) > netsh interface portproxy show all
   (설정) > netsh interface portproxy add v4tov4 listenport=8763 listenaddress=0.0.0.0 connectport=8763 connectaddress=172.30.93.187
+
+
++ nas 마운트하기
+  sudo mount -t cifs //192.168.0.xxx/드라이브 /home/nas -o user=계정,passwd=비밀번호,vers=3.0
