@@ -33,15 +33,15 @@ def average(avg):
         writer.writerow([today,avg])
 
 # 데이터 일일값 저장하기
-def daily(brightness_values, timestamps, sunset):
+def daily(brightness_values, temperature_values, photon_values, timestamps, sunset):
     sunset_date = sunset.date().strftime("%Y-%m-%d")
     filename=f"{sunset_date}_sqm.csv"
 
     with open(filename,"w",newline="",encoding="utf-8") as f:
         writer=csv.writer(f)
-        writer.writerow(["timestamp","brightness"])
-        for ts, val in zip(timestamps, brightness_values):
-            writer.writerow([ts,val])
+        writer.writerow(["timestamp","brightness(m)","temperature(C)","photon(Hz)"])
+        for ts, bri, temp, pho in zip(timestamps, brightness_values, temperature_values, photon_values):
+            writer.writerow([ts,bri, temp, pho])
 
 # 데이터 측정하기
 def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
@@ -50,6 +50,8 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
     n=int(timeduration.total_seconds()//timeinterval)
     success_count=0
     brightness_values=[]
+    temperature_values=[]
+    photon_values=[]
     timestamps=[]
     
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
@@ -73,11 +75,17 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
                     parts=decoded.split(",")
                     print(f"{timestamp} | [{i+1:04d}] {decoded}")
                     success_count+=1
-                    if len(parts) >=2:
+                    if len(parts) >=6:
                         brightness_str=parts[1].strip().replace("m","")
+                        temperature_str=parts[5].strip().replace("C","")
+                        photon_str=parts[2].strip().replace("Hz","")
                         try:
                             brightness=float(brightness_str)
+                            temperature=float(temperature_str)
+                            photon=float(photon_str)
                             brightness_values.append(brightness)
+                            temperature_values.append(temperature)
+                            photon_values.append(photon)
                             timestamps.append(timestamp)
                         except ValueError:
                             log(f"WARNING: Invalid brightness walue at iteration {i+1}")
@@ -98,15 +106,17 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
     if brightness_values:
         avg_brightness=sum(brightness_values)/len(brightness_values)
         average(avg_brightness)
-        daily(brightness_values,timestamps,sunset)
+        daily(brightness_values,temperature_values,photon_values,timestamps,sunset)
         print(f"Average brightness saved: {avg_brightness}")
         log(f"average brightness saved: {avg_brightness}")
+        print(f"Daily data saved")
+        log(f"Daily data saved {i+1}")
     else:
         log("No valid brightness data collected.")
 
 measured_today=False
 
-IP=''
+IP='192.168.0.26'
 PORT=10001
 timeinterval=60
 
