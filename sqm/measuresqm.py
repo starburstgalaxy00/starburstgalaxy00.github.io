@@ -116,7 +116,7 @@ def measurement(IP,PORT,timeinterval,sunset,now,sunrise):
 
 measured_today=False
 
-IP='192.168.0.26'
+IP=''
 PORT=10001
 timeinterval=60
 
@@ -126,8 +126,10 @@ while True:
     if sunset <= now < sunrise:
         if not measured_today:
             try:
-               measurement(IP,PORT,timeinterval,sunset,now,sunrise)
-               measured_today=True
+                log(f"measurement started")
+                print(f"measurement started")
+                measurement(IP,PORT,timeinterval,sunset,now,sunrise)
+                measured_today=True
             except Exception as e:
                 log(f"Critical measurement error: {e}")
                 measured_today=False
