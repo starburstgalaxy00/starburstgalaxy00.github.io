@@ -137,5 +137,5 @@ while True:
     else:
         measured_today=False
         sleep_seconds=max((sunset-now).total_seconds()-60, 300)
-        log(f"Daytime detected. Sleeping for {sleep_seconds:.0f} seconds until sunset.")
+        log(f"Daytime detected. Sleeping for {sleep_seconds:.0f} seconds until sunset({sunset}).")
         time.sleep(sleep_seconds)
