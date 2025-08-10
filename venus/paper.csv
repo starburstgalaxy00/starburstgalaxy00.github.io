@@ -1,5 +1,8 @@
 author,name,theme,number,classification,link
-YeonJooLee,VenusCloudAlbedoScenario,AlbedoScenario,1907.09683v1,theory,paper/1907.09683v1 (venus cloud albedo scenario).pdf
-S.Lebonnois,VCD_v2.3,Dataset,,dataset,paper/ddd_vcd_2.3 (VCD v2.3).pdf
-MasatoNakamura,OverviewOfVenusOrbiter_Akatsuki,Orbiter,,dataset,paper/Overview_of_Venus_orbiter_Akatsuki.pdf
-RossowWilliamB,CloudTrackedWindsFromPioneer,Wind,0022-4928,theory,paper/atsc-1520-0469_1990_047_2053_ctwfvo_2_0_co_2.pdf
+YeonJooLee,VenusCloudAlbedoScenario,AlbedoScenario,1907.09683v1,theory,venus/1907.09683v1 (venus cloud albedo scenario).pdf
+S.Lebonnois,VCD_v2.3,Dataset,,dataset,venus/ddd_vcd_2.3 (VCD v2.3).pdf
+MasatoNakamura,OverviewOfVenusOrbiter_Akatsuki,Orbiter,,dataset,venus/Overview_of_Venus_orbiter_Akatsuki.pdf
+RossowWilliamB,CloudTrackedWindsFromPioneer,Wind,0022-4928,theory,venus/atsc-1520-0469_1990_047_2053_ctwfvo_2_0_co_2.pdf
+J.Peralta,StationaryWaveAndSlowlyMovingFeaturesInTheNightUpperCloudsOfVenus,Wind,1707.07796,theory,venus/1707.07796.pdf
+K.L.MILLER,IonDynamicsInTheVenusIonosphere,Wind,,theory,venus/1991SSRv___55__165M(IondynamicsintheVenusionosphere).pdf
+ArminKleinbohl,AkatsukiRadioScience,Dataset,,dataset,venus/vco_rs_sis_v13.pdf
