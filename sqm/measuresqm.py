@@ -29,7 +29,7 @@ def nighttime(city,country,timezone,latitude,longitude):
 
     moon_phase=moon.phase(now)
 
-    return now, sunset, sunrise, dusk_today, dawn_tomorrow, sun_today, sun_tomorrow, moon_phase, location.timezone
+    return now, sunset, sunrise, dusk_today, dawn_tomorrow, sun_today, sun_tomorrow, moon_phase, ZoneInfo(location.timezone)
 
 # 시리얼번호 가져오기
 def serialnumber(IP,PORT):
@@ -73,8 +73,8 @@ def daily(brightness_values, temperature_values, photon_values, timestamps, suns
 # 데이터 측정하기
 def measurement(IP,PORT,timeinterval,sunset,now,sunrise,dusk_today,dawn_tomorrow,city,serial,moon_phase, location_timezone):
     timeduration=sunrise-now
-    # n=10
-    n=int(timeduration.total_seconds()//timeinterval)
+    n=3
+    #n=int(timeduration.total_seconds()//timeinterval)
     success_count=0
     brightness_values=[]
     temperature_values=[]
@@ -159,16 +159,16 @@ timezone="Asia/Seoul"
 latitude=36.3667
 longitude=127.3556
 
-IP='192.168.0.7'
+IP='192.168.0.28'
 PORT=10001
-timeinterval=30
+timeinterval=5
 
 serial=serialnumber(IP,PORT)
 
 while True:
     now, sunset, sunrise, dusk_today, dawn_tomorrow, sun_today, sun_tomorrow, moon_phase, location_timezone = nighttime(city,country,timezone,latitude,longitude)
 
-    if sunset <= now < sunrise:
+    if not sunset <= now < sunrise:
         if not measured_today:
             try:
                measurement(IP,PORT,timeinterval,sunset,now,sunrise,dusk_today,dawn_tomorrow,city,serial,moon_phase,location_timezone)
