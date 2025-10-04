@@ -161,7 +161,11 @@
 
         var first_arrow_display = "block";
         var second_arrow_display = "block";
-
+        
+        var dinner_start_hour = 18;
+        if (month >= 10 || month <=3) {
+            dinner_start_hour = 17;
+        }
         // 오전, 오후 구분
         //if (hour < 13) {
         //    var am_pm = "오전";
@@ -190,13 +194,13 @@
         }
        
         // 5시 45분 이상, 6시 50분 미만 = 저녁시간
-        else if ((hour == summer-1 && min >= 45) || (hour == summer && min < 50)) {
+        else if ((hour == dinner_start_hour-1 && min >= 45) || (hour == dinner_start_hour && min < 50)) {
             // 저녁 6~7시 저녁시간
                 current_pg = dinner;
-                current_pg_sub = summer + dinner_time1 + (summer+1) + dinner_time2;
+                current_pg_sub = dinner_start_hour + dinner_time1 + (dinner_start_hour+1) + dinner_time2;
 
                 current_pg_en = en_dinner;
-                current_pg_en_sub = summer + en_dinner_time1 + (summer+1) + en_dinner_time2;
+                current_pg_en_sub = dinner_start_hour + en_dinner_time1 + (dinner_start_hour+1) + en_dinner_time2;
         }
         // 관측실 58분에서 45분 사이 천문대 운영시간인 2시에서 10시 사이
         else if ((hour >= 14 || hour < 22) && (min < 45 || min > 58)) {
