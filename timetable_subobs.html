@@ -64,7 +64,7 @@
 
     #info { /*관측대상정보*/
         position: fixed;
-        top: 54%;
+        top: 20%;
         width: 90vh;
         height: 45vw;
         text-align: left;
@@ -95,7 +95,7 @@
     .datetime {font-size: 60px;}
 
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
-    .fs-info2 {font-size: 2vw;} /*설명*/
+    .fs-info2 {font-size: 1.9vw;} /*설명*/
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
     .fs-title {font-size: 5vw;} /*메인이름*/
 
@@ -108,19 +108,19 @@
 
     .timetable {
         position: fixed;
-        top: 15vw;
+        top: 60vw;
         left: 2.5vh;
         border: 1px solid #ccc;
         margin-top: px;
         width: 95vh;
-        height: 70vw;
+        height: 20vw;
     }
 
     .timetable th, .timetable td {
         border: 1px solid #ccc;
         padding: 8px;
         text-align: center;
-        font-size: 2.5vw;
+        font-size: 1.5vw;
     }
 
     .timetable th {
@@ -131,7 +131,7 @@
 <html lang="ko" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>planetariumtable</title>
+        <title>mainobs_table</title>
         
         <!-- 자동새로고침 -->
         <!-- <meta charset="UTF-8">
@@ -151,19 +151,26 @@
                 </div>
                 <!--제목-->
                 <div id="theme" class="border">
-                    <div class="fs-title">천체투영관 운영시간</div>
+                    <div class="fs-title">보조관측실 운영시간</div>
                 </div>
                 <!--닫기버튼-->
                 <div id="close" class="border">
                     <a href="#" onclick="history.back(); return false;" class="fs-info1">닫기</a>
                 </div>
+                <div id="info" class="border">
+                    <div id="current-status" style="text-align: center; width: 100%">
+                        <p id="status-label" class="fs-info2" style="color: #adadad; margin-bottom: 7vw;">현재 진행 프로그램</p>
+                        <p id="status-time" style="font-size: 6vw; font-weight: bold; color: #1A237E; margin-bottom: 6vw;"></p>
+                        <p id="status-pro" class="fs-title" style="font-size: 6vw;"></p>
+                    </div>
+                </div>
                 <!--프로그램정보-->
                 <div id="timetable-container" class="border"></div>
                 <!--하단정보-->
                 <div id="info2" class="border">
-                    <div class="fs-info2">＊ <span style="color:red; font-weight: bold;">만 5세 이상</span>부터 입장(시낭송, 음악회는 <span style="color:red; font-weight: bold;">만 7세 이상</span>)</div>
-                    <div class="fs-info2">＊ 프로그램 시작하면 출입 절대 불가</div>
-                    <div class="fs-info2">＊ 프로그램 시작하면 녹화 및 사진 촬영 불가</div>
+                    <div class="fs-info2" style="color:red; font-weight: bold;">＊ 종료시간 5분전 입장마감</div>
+                    <div class="fs-info2" style="color:red;">＊ 날씨에 따라 관측이 불가할 수 있습니다.</div>
+                    <div class="fs-info2">＊ 플래시를 사용하면 관측하시는 분들에게 방해가 됩니다.</div>
                 </div>
             </div>
         </div>
@@ -171,6 +178,8 @@
 </html>
 
 <script>
+
+let currentMonthlyData = null;
 
     function setClock() {
         var date = new Date();
@@ -187,7 +196,59 @@
 
         document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
         document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
+
+        updateStatus(hour + ":" + min);
     }
+
+    function updateStatus(nowTime) {
+        if (!currentMonthlyData) return;
+
+        let displayTime = "-";
+        let displayPro = "점검 중";
+        let isAfterLast = true;
+
+        for (let i = 15; i <= 22; i++) {
+            let timeRange = currentMonthlyData[i + "time"];
+            let program = currentMonthlyData[i + "pro"];
+
+            if (timeRange && program && program !== "-") {
+                let times = timeRange.split(" ~ ");
+                let start = times[0];
+                let end = times[1];
+
+                if (nowTime >= start && nowTime <= end){
+                    displayTime = timeRange;
+                    displayPro = program;
+                    isAfterLast = false;
+                    break;
+                }
+
+                if (nowTime < end) {
+                    isAfterLast = false;
+                }
+            }
+        }
+
+        if (nowTime > "21:50" || isAfterLast) {
+            displayTime = "관측 종료";
+            displayPro = "운영 종료";
+            document.getElementById("status-label").style.visibility = "hidden";
+        } else {
+            document.getElementById("status-label").style.visibility = "visible";
+        }
+
+        document.getElementById("status-time").innerHTML = displayTime;
+        document.getElementById("status-pro").innerHTML = displayPro;
+
+        if (displayPro === "점검 중") {
+            document.getElementById("status-pro").style.color = "#adadad";
+        } else if (displayPro === "운영 종료") {
+            document.getElementById("status-pro").style.color = "black";
+        } else {
+            document.getElementById("status-pro").style.color = "black";
+        }
+    }
+
 
     function modifyNumber(time) {
         if (parseInt(time) < 10) {
@@ -198,7 +259,7 @@
     }
 
 function loadCSV() {
-    fetch('data/planetariumtable.csv')
+    fetch('data/subobstable.csv?v=' + new Date().getTime())
         .then(response => response.text())
         .then(csvData => {
             const lines = csvData.trim().split('\n');
@@ -215,6 +276,7 @@ function loadCSV() {
             const monthlyData = data.find(row => parseInt(row.month) === currentMonth);
 
             if (monthlyData) {
+                currentMonthlyData = monthlyData;
                 const timetableContainer = document.getElementById('timetable-container');
                 timetableContainer.innerHTML = '';
                 const timetable = document.createElement('table');
@@ -233,7 +295,7 @@ function loadCSV() {
 
                 const tbody = document.createElement('tbody');
                 let round = 1; // 회차 번호
-                for (let i = 15; i <= 21; i++) {
+                for (let i = 15; i <= 22; i++) {
                     const timeKey = `${i}time`;
                     const proKey = `${i}pro`;
 
