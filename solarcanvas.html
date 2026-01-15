@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SolarCanvas</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        /* 왼쪽 이미지 영역 */
+        .image-container {
+            position: relative; /* 텍스트 배치를 위한 기준점 */
+            width: 50vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            border-right: 2px solid #333;
+        }
+
+        .image-container img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+
+        /* 이미지 위에 올라가는 텍스트 스타일 */
+        .image-overlay-text {
+            position: absolute;
+            top: 5vh; /* 도화지 텍스트와 높이 맞춤 */
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: 'Malgun Gothic', sans-serif;
+            font-size: 2.0vw; /* 도화지 텍스트와 유사한 크기 */
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* 가독성을 위한 그림자 */
+            pointer-events: none; /* 클릭 시 이미지를 방해하지 않음 */
+            z-index: 5;
+        }
+
+        /* 오른쪽 도화지 영역 */
+        .canvas-container {
+            position: relative;
+            width: 50vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #paintCanvas {
+            width: 95%;
+            height: 95vh;
+            background-color: white;
+            border: 2px solid #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            display: block;
+            touch-action: none;
+        }
+
+        .toolbar {
+            position: absolute;
+            top: calc(2.5vh + 20px);
+            left: calc(2.5% + 20px);
+            right: calc(2.5% + 20px);
+            display: flex;
+            justify-content: space-between;
+            z-index: 20;
+        }
+
+        .color-tools { display: flex; gap: 10px; }
+        .canvas-btn { padding: 10px 18px; cursor: pointer; border: 1px solid #333; border-radius: 6px; font-weight: bold; font-size: 14px; }
+        .btn-red { background-color: #ff0000; color: white; border: none; }
+        .btn-black { background-color: #000000; color: white; border: none; }
+        .reset-btn { background-color: #ffffff; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="image-container">
+        <div class="image-overlay-text">천문대에서 촬영한 태양</div>
+        <img src="/data/sun.jpg" alt="태양 홍염 이미지">
+    </div>
+
+    <div class="canvas-container">
+        <div class="toolbar">
+            <div class="color-tools">
+                <button class="canvas-btn btn-red" onclick="changeColor('red')">빨간 펜</button>
+                <button class="canvas-btn btn-black" onclick="changeColor('black')">검은 펜</button>
+            </div>
+            <button class="canvas-btn reset-btn" onclick="resetCanvas()">초기화</button>
+        </div>
+        
+        <canvas id="paintCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('paintCanvas');
+        const ctx = canvas.getContext('2d');
+        let painting = false;
+        let currentColor = 'red';
+
+        function drawStaticElements() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const baseSize = Math.min(canvas.width, canvas.height);
+            const radius = (baseSize * 0.7) / 2;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = "red"; 
+            ctx.fill();            
+            ctx.closePath();
+
+            ctx.fillStyle = "#2c3e50";
+            const fontSize = Math.max(canvas.width * 0.04, 20); 
+            ctx.font = `bold ${fontSize}px 'Malgun Gothic', sans-serif`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "top";
+            ctx.fillText("오늘의 태양 홍염", canvas.width * 0.5, canvas.height * 0.05);
+        }
+
+        function changeColor(color) {
+            currentColor = color;
+            const fill = color === 'red' ? 'red' : 'black';
+            canvas.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="${fill}" stroke="white" stroke-width="1"/></svg>') 5 5, crosshair`;
+        }
+
+        function initCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            drawStaticElements();
+            changeColor(currentColor);
+        }
+
+        function startPosition(e) {
+            painting = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            draw(e);
+        }
+
+        function finishedPosition() { painting = false; }
+
+        function draw(e) {
+            if (!painting) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = currentColor; 
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+
+        function resetCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawStaticElements();
+        }
+
+        window.addEventListener('resize', initCanvas);
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', finishedPosition);
+        canvas.addEventListener('mouseleave', finishedPosition);
+        canvas.addEventListener('mousemove', draw);
+
+        initCanvas();
+    </script>
+</body>
+</html>
