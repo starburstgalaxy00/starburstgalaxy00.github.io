@@ -216,7 +216,7 @@ let currentMonthlyData = null;
                 let start = times[0];
                 let end = times[1];
 
-                if (nowTime >= start && nowTime <= end){
+                if (nowTime >= start && nowTime < end){
                     displayTime = timeRange;
                     displayPro = program;
                     isAfterLast = false;
@@ -229,7 +229,7 @@ let currentMonthlyData = null;
             }
         }
 
-        if (nowTime > "21:50" || isAfterLast) {
+        if (nowTime >= "21:50" || isAfterLast) {
             displayTime = "관측 종료";
             displayPro = "운영 종료";
             document.getElementById("status-label").style.visibility = "hidden";
