@@ -15,72 +15,24 @@
         height: 100%;
     }
 
-    #image-container {
+    #image-container { /*최적이미지비율: 5:2*/
         position: absolute;
-        top: 12.5%;
+        top: 12%;
         width:100vh;
-        height:45vw; 
+        height:40vw; 
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
-        /* background-color: rgba(0,255,0,0.6) */
     }
 
-    #object_image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    #image-data {
-        position: absolute;
-        top: 57.5%;
-        width:100vh;
-        height:2vw; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* background-color: rgba(0,255,0,0.6) */
+
+
+    .border {
+        /*border: 2px solid red;*/
     }
 
-    #text-wrapper {
-        position: fixed;
-        top: 60%;
-        left: 1%;
-        width: 98vh;
-        height: 40vw;
-        display: flex;
-        gap: 10px
-    }
-
-    #feature-container {
-        flex: 7;
-        text-align: left;
-        padding-left:1em;
-        padding-right:1em;
-        /* background-color: rgba(255,0,0,0.6) */
-    }
-
-    #inform-container {
-        flex:3;
-        text-align: left;
-        padding-left: 0.3em;
-        word-break: keep-all;
-        overflow-wrap: break-work;
-        white-space: normal;
-        border: 1px solid rgba(255,255,255,0.5);
-        border-radius: 8px;
-        /* background-color: rgba(0,0,255,0.6) */
-    }
-
-    #inform-container li {
-        list-style: none;
-        position: relative;
-    }
-
-    #inform-container li::before{
-        content: "- ";
+    .border2 {
+        /*border: 2px solid rgb(43, 255, 0);*/
     }
 
     .container {
@@ -100,7 +52,6 @@
         transform: translate(-50%,0);
         top: 0%;
         left: 5%;
-        /* background-color: rgba(0,255,0,0.6) */
     }
 
     #theme { /*제목 위치*/
@@ -110,7 +61,6 @@
        left: 50%;
        text-align: center;
        width: 100vh;
-       /* background-color: rgba(0,0,255,0.6) */
     }
 
     #close { /*닫기버튼 위치*/
@@ -121,6 +71,14 @@
         top: 0%;
         left: 96%;
         text-align: center;
+    }
+
+    #info { /*관측대상정보*/
+        position: fixed;
+        top: 51%;
+        width: 90vh;
+        height: 45vw;
+        text-align: left;
     }
 
     .rotate { /* 회전 */
@@ -140,16 +98,14 @@
     .datetime {font-size: 60px;}
 
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
-    .fs-info2 {font-size: 2vw;} /*설명*/
-    .fs-info3 {font-size: 1vw;} /*설명*/
-    .fs-info4 {font-size: 0.7vw;}
+    .fs-info2 {font-size: 2.3vw;} /*설명*/
+    .fs-info3 {font-size: 1.5vw;} /*설명*/
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
     .fs-title {font-size: 5.5vw;} /*메인이름*/
 
     .datetime > p, .current > p {font-size: 40px; color: #adadad;}
     .alltimes > p {font-size: 32px; color: #adadad;}
 
-    .pt-info1 {padding-top: 0.2vw;}
     .pt-info2 {padding-top: 1vw;}
     .pt-200 {padding-top: 120px;}
     .pt-260 {padding-top: 260px;}
@@ -169,53 +125,48 @@
     <body>
         <div class="container">
             <div class="rotate">
-                <!-- 시계
+                <!--시계-->
                 <div id="watch" class="border">
                     <div class="datetime fs-info1">
                     <div id="date"></div>
                     <div id="time" class="time"></div>
                     </div>
-                </div> -->
+                </div>
                 <!--제목-->
-                <div id="theme">
+                <div id="theme" class="border">
                     <div class="fs-info1">오늘의 관측대상</div>
                     <div id="object_name" class="fs-title"></div>
                     <div id="catalogue" class="fs-subtitle"></div>
                 </div>
                 <!--닫기버튼-->
-                <div id="close">
+                <div id="close" class="border">
                     <div>
                         <a href="#" onclick="history.back(); return false;" class="fs-info1">닫기</a>
                     </div>
                 </div>
                 <!--이미지상자-->
-                <div id="image-container">
-                    <img id="object_image" src="" alt="관측 대상 이미지">
+                <div id="image-container" class="border2">
+                    <img id="object_image" src="" alt="관측 대상 이미지" style="max-width: 900; max-height: 40vw;">
                 </div>
-                <div id="image-data">
-                    <div>촬영:  <span id="photo_data1"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div>
-                    <div>촬영장소:  <span id="photo_data2"></span></div>
+                <div>
+                    <div class="fs-20">촬영: <span id="photo_data1"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                        촬영장소: <span id="photo_data2"></span></div>
                 </div>
-                <div id="text-wrapper">
-                    <!--관측대상특징-->
-                    <div id="feature-container" >
-                        <div class="pt-info2 fs-info2"><span id="feature"></span></div>
-                    </div>
 
-                    <!--관측대상정보-->
-                    <div id="inform-container">
-                        <li class="pt-info2 fs-info3">분류: <span id="classification"></span></li>
-                        <li class="pt-info2 fs-info3">위치: <span id="location"></span></li>
-                        <li class="pt-info2 fs-info3">거리: <span id="distance"></span></li>
-                        <div class="pt-info1 fs-info4">
-                            AU(Astronomical Unit)<br>: 약 1억 5천만km, 태양에서 지구까지의 거리<br>
-                            광년(light year)<br>: 약 9조 5천억km, 빛이 1년동안 간 거리
-                        </div>
-                        <li class="pt-info2 fs-info3">등급: <span id="apparent_magnitude"></span></li>
-                        <div class="pt-info1 fs-info4">
-                            : 별의 밝기를 나타내는 단위로 작을수록 밝다.<br>
-                        </div>
+                <!--관측대상정보-->
+                <div id="info" class="border">
+                    <li class="pt-info2 fs-info2">분류: <span id="classification"></span></li>
+                    <li class="pt-info2 fs-info2">위치: <span id="location"></span></li>
+                    <li class="pt-info2 fs-info2">거리: <span id="distance"></span></li>
+                    <div class="pt-info2 fs-info3">
+                        - AU: 약 150,000,000km, 태양에서 지구까지의 거리 / Astronomical Unit<br>
+                        - ly: 약 9,500,000,000,000km, 빛이 1년동안 간 거리 / light year
                     </div>
+                    <li class="pt-info2 fs-info2">등급: <span id="apparent_magnitude"></span></li>
+                    <div class="pt-info2 fs-info3">
+                        - 등급: 별의 밝기를 나타내는 단위로 작을수록 밝다.<br>
+                    </div>
+                    <li class="pt-info2 fs-info2">특징 <br> <span id="feature"></span></li>
                 </div>
             </div>
         </div>
