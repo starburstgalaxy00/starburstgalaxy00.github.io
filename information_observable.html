@@ -17,9 +17,9 @@
 
     #image-container {
         position: absolute;
-        top: 12.5%;
+        top: 13%;
         width:100vh;
-        height:45vw; 
+        height:46vw; 
         display: flex;
         justify-content: center;
         align-items: center;
@@ -31,17 +31,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-    
-    #image-data {
-        position: absolute;
-        top: 57.5%;
-        width:100vh;
-        height:2vw; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* background-color: rgba(0,255,0,0.6) */
     }
 
     #text-wrapper {
@@ -62,8 +51,26 @@
         /* background-color: rgba(255,0,0,0.6) */
     }
 
+    #data-container {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 100%;
+        /* background-color: rgba(0,0,255,0.6); */
+    }
+    
+    #data-container li {
+        list-style: none;
+        position: relative;
+    }
+
+    #data-container li::before{
+        content: "- ";
+    }
+
     #inform-container {
-        flex:3;
+        flex:7;
         text-align: left;
         padding-left: 0.3em;
         word-break: keep-all;
@@ -74,13 +81,15 @@
         /* background-color: rgba(0,0,255,0.6) */
     }
 
-    #inform-container li {
-        list-style: none;
-        position: relative;
-    }
-
-    #inform-container li::before{
-        content: "- ";
+    #image-data {
+        flex: 3;
+        text-align: left;
+        padding-left: 0.3em;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 8px;
+        /* background-color: rgba(0,255,0,0.6) */
     }
 
     .container {
@@ -192,28 +201,31 @@
                 <div id="image-container">
                     <img id="object_image" src="" alt="관측 대상 이미지">
                 </div>
-                <div id="image-data">
-                    <div>촬영:  <span id="photo_data1"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div>
-                    <div>촬영장소:  <span id="photo_data2"></span></div>
-                </div>
+
                 <div id="text-wrapper">
                     <!--관측대상특징-->
                     <div id="feature-container" >
                         <div class="pt-info2 fs-info2"><span id="feature"></span></div>
                     </div>
 
-                    <!--관측대상정보-->
-                    <div id="inform-container">
-                        <li class="pt-info2 fs-info3">분류: <span id="classification"></span></li>
-                        <li class="pt-info2 fs-info3">위치: <span id="location"></span></li>
-                        <li class="pt-info2 fs-info3">거리: <span id="distance"></span></li>
-                        <div class="pt-info1 fs-info4">
-                            AU(Astronomical Unit)<br>: 약 1억 5천만km, 태양에서 지구까지의 거리<br>
-                            광년(light year)<br>: 약 9조 5천억km, 빛이 1년동안 간 거리
+                    <div id="data-container">
+                        <!--관측대상정보-->
+                        <div id="inform-container">
+                            <li class="pt-info2 fs-info3">분류: <span id="classification"></span></li>
+                            <li class="pt-info2 fs-info3">위치: <span id="location"></span></li>
+                            <li class="pt-info2 fs-info3">거리: <span id="distance"></span></li>
+                            <div class="pt-info1 fs-info4">
+                                AU(Astronomical Unit)<br>: 약 1억 5천만km, 태양에서 지구까지의 거리<br>
+                                광년(light year)<br>: 약 9조 5천억km, 빛이 1년동안 간 거리
+                            </div>
+                            <li class="pt-info2 fs-info3">등급: <span id="apparent_magnitude"></span></li>
+                            <div class="pt-info1 fs-info4">
+                                : 별의 밝기를 나타내는 단위로 작을수록 밝다.<br>
+                            </div>
                         </div>
-                        <li class="pt-info2 fs-info3">등급: <span id="apparent_magnitude"></span></li>
-                        <div class="pt-info1 fs-info4">
-                            : 별의 밝기를 나타내는 단위로 작을수록 밝다.<br>
+                        <div id="image-data">
+                            <li class="pt-info2 fs-info3">촬영장소:  <span id="photo_data2"></span></li>  
+                            <li class="pt-info2 fs-info3">촬영:  <span id="photo_data1"></span></li> 
                         </div>
                     </div>
                 </div>
