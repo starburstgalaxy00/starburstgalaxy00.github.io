@@ -35,17 +35,26 @@
 
     #text-wrapper {
         position: fixed;
+        flex-direction: column;
         top: 60%;
         left: 1%;
         width: 98vh;
         height: 39vw;
         display: flex;
-        gap: 10px
+        gap: 10px;
+        align-items: center;
     }
 
     #feature-container {
         flex: 7;
-        text-align: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 50px;
+        text-align: center;
+        font-family: 'Nanum Myeongjo', serif;
+        letter-spacing: 0.1em;
+        line-height: 1.8;
         padding-left:1em;
         padding-right:1em;
         /* background-color: rgba(255,0,0,0.6) */
@@ -54,7 +63,8 @@
     #data-container {
         flex: 3;
         display: flex;
-        flex-direction: column;
+        width: 80%;
+        /* flex-direction: column; */
         gap: 10px;
         height: 100%;
         /* background-color: rgba(0,0,255,0.6); */
@@ -70,7 +80,7 @@
     }
 
     #inform-container {
-        flex:7;
+        flex:6;
         text-align: left;
         padding-left: 0.3em;
         word-break: keep-all;
@@ -82,7 +92,7 @@
     }
 
     #image-data {
-        flex: 3;
+        flex: 4;
         text-align: left;
         padding-left: 0.3em;
         justify-content: center;
@@ -146,12 +156,17 @@
 
     .time {font-weight: bold; color: yellow;}
 
+    .highlight {
+        color: #fffb90;
+        font-weight: bold;
+    }
+
     .datetime {font-size: 60px;}
 
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
-    .fs-info2 {font-size: 2vw;} /*설명*/
+    .fs-info2 {font-size: 1.5vw;} /*설명*/
     .fs-info3 {font-size: 1vw;} /*설명*/
-    .fs-info4 {font-size: 0.7vw;}
+    .fs-info4 {font-size: 0.8vw;}
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
     .fs-title {font-size: 5.5vw;} /*메인이름*/
 
@@ -159,7 +174,7 @@
     .alltimes > p {font-size: 32px; color: #adadad;}
 
     .pt-info1 {padding-top: 0.2vw;}
-    .pt-info2 {padding-top: 1vw;}
+    .pt-info2 {padding-top: 0.4vw;}
     .pt-200 {padding-top: 120px;}
     .pt-260 {padding-top: 260px;}
 </style>
@@ -168,7 +183,8 @@
     <head>
         <meta charset="utf-8">
         <title>observationimage</title>
-
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
         <!--자동새로고침-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -215,8 +231,8 @@
                             <li class="pt-info2 fs-info3">위치: <span id="location"></span></li>
                             <li class="pt-info2 fs-info3">거리: <span id="distance"></span></li>
                             <div class="pt-info1 fs-info4">
-                                AU(Astronomical Unit)<br>: 약 1억 5천만km, 태양에서 지구까지의 거리<br>
-                                광년(light year)<br>: 약 9조 5천억km, 빛이 1년동안 간 거리
+                                AU(Astronomical Unit): 약 1억 5천만km, 태양에서 지구까지의 거리<br>
+                                광년(light year): 약 9조 5천억km, 빛이 1년동안 간 거리
                             </div>
                             <li class="pt-info2 fs-info3">등급: <span id="apparent_magnitude"></span></li>
                             <div class="pt-info1 fs-info4">
@@ -255,12 +271,19 @@
         //console.log(objectName);
         //console.log(dataItem);
 
+        function formatHighlight(text) {
+            if (!text) return "";
+            return text
+                .replace(/\\n/g, '<br>')
+                .replace(/\[h\](.*?)\[h\]/g, '<span class="highlight">$1</span>');
+        }
+
         if(dataItem) {
             document.getElementById("object_name").textContent = dataItem.object_name;
             document.getElementById("catalogue").textContent = dataItem.catalogue;
             document.getElementById("classification").textContent = dataItem.classification;
             document.getElementById("distance").textContent = dataItem.distance;
-            document.getElementById("feature").textContent = dataItem.feature;
+            document.getElementById("feature").innerHTML = formatHighlight(dataItem.feature);
             document.getElementById("location").textContent = dataItem.location;
             document.getElementById("apparent_magnitude").textContent = dataItem.apparent_magnitude;
             document.getElementById("photo_data1").textContent = dataItem.photo_data1;
