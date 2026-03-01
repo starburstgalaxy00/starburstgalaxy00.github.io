@@ -137,10 +137,11 @@
 
             // --- 저녁시간 설정 ---
             let dStartH, dStartM, dEndH, dEndM;
-            if (month >= 10 || month <= 3) { // 동계 (10월~3월)
+            // 3월을 하계로 보내기 위해 조건을 month <= 2로 수정
+            if (month >= 10 || month <= 2) { // 동계 (10월~2월)
                 dStartH = 17; dStartM = 25;
                 dEndH = 18; dEndM = 25;
-            } else { // 하계 (4월~9월)
+            } else { // 하계 (3월~9월)
                 dStartH = 18; dStartM = 0;
                 dEndH = 19; dEndM = 0;
             }
@@ -165,7 +166,7 @@
                 current_pg_en = en_end;
                 current_pg_en_sub = en_end_sub;
             }
-            // 3. 저녁시간 (동계 기준 17:25부터 최우선 노출)
+            // 3. 저녁시간 (투영관 조건보다 위에 위치하여 우선순위 확보)
             else if (currentTotalMin >= dinnerStartTotal && currentTotalMin < dinnerEndTotal) {
                 current_pg = dinner;
                 current_pg_sub = dStartH + ":" + modifyNumber(dStartM) + " ~ " + dEndH + ":" + modifyNumber(dEndM);
