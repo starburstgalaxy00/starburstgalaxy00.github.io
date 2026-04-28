@@ -75,7 +75,9 @@
         top: 90%;
         width: 90vh;
         height: vw;
-        text-align: left;
+        font-size: 10vw;
+        font-weight: bold;
+        text-align: center;
     }
 
     .rotate { /* 회전 */
@@ -95,7 +97,7 @@
     .datetime {font-size: 60px;}
 
     .fs-info1 {font-size: 1vw;} /*시계, 오늘의관측대상*/
-    .fs-info2 {font-size: 2vw;} /*설명*/
+    .fs-info2 {font-size: 5vw;} /*설명*/
     .fs-subtitle {font-size: 1.8vw;} /*영어명,분류*/
     .fs-title {font-size: 5vw;} /*메인이름*/
 
@@ -359,14 +361,42 @@ function loadCSV() {
     .catch(err => console.error(err));
 }
 
+function updateInfo2() {
+    const now = new Date();
+
+    const day = now.getDay(); // 0:일 ~ 6:토
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+
+    const start = 19 * 60 + 30; // 19:30
+    const end = 20 * 60;        // 20:00
+
+    const info2 = document.getElementById('info2');
+
+    // 기본 초기화
+    info2.innerHTML = '';
+
+    if (nowMin >= start && nowMin <= end) {
+        if (day === 2) { // 화요일
+            info2.innerHTML = `<div class="fs-info2 breathing">20시 시낭송회</div>`;
+        } 
+        else if (day === 6) { // 토요일
+            info2.innerHTML = `<div class="fs-info2 breathing">20시 별음악회</div>`;
+        }
+    }
+}
+
 window.onload = function () {
     loadCSV();
     setClock();
+    updateInfo2();
 
     setInterval(setClock, 1000);
 
-    // 👉 1분마다 하이라이트 갱신
-    setInterval(loadCSV, 60000);
+    // 👉 1분마다 갱신
+    setInterval(() => {
+        loadCSV();
+        updateInfo2();
+    }, 60000);
 }
 
 </script>
