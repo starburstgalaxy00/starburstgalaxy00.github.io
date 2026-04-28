@@ -172,9 +172,9 @@
                 <div id="timetable-container" class="border"></div>
                 <!--하단정보-->
                 <div id="info2" class="border">
-                    <div class="fs-info2">＊ <span style="color:red; font-weight: bold;">만 5세 이상</span>부터 입장(시낭송, 음악회는 <span style="color:red; font-weight: bold;">만 7세 이상</span>)</div>
+                    <!-- <div class="fs-info2">＊ <span style="color:red; font-weight: bold;">만 5세 이상</span>부터 입장(시낭송, 음악회는 <span style="color:red; font-weight: bold;">만 7세 이상</span>)</div>
                     <div class="fs-info2">＊ 프로그램 시작하면 출입 절대 불가</div>
-                    <div class="fs-info2">＊ 프로그램 시작하면 녹화 및 사진 촬영 불가</div>
+                    <div class="fs-info2">＊ 프로그램 시작하면 녹화 및 사진 촬영 불가</div> -->
                 </div>
             </div>
         </div>
@@ -276,8 +276,8 @@ function loadCSV() {
 
         timeMap.forEach((item, index) => {
 
-            const pTime = planet[`${item.key + 1}time`] || '';
-            const pPro  = planet[`${item.key + 1}pro`] || '';
+            const pTime = planet[`${item.key -1}time`] || '';
+            const pPro  = planet[`${item.key -1}pro`] || '';
 
             const oTime = obs[`${item.key}time`] || '';
             const oPro  = obs[`${item.key}pro`] || '';
