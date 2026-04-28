@@ -316,7 +316,7 @@ function loadCSV() {
                 const startMin = timeToMinutes(start);
                 const highlightStart = startMin - 10;
 
-                if (nowMin >= highlightStart && nowMin <= startMin) {
+                if (nowMin >= highlightStart && nowMin <= startMin - 2) {
                     plaCell.classList.add('breathing');
                 }
             }
@@ -333,7 +333,7 @@ function loadCSV() {
                     const startMin = timeToMinutes(start);
                     const endMin = timeToMinutes(end);
 
-                    if (nowMin >= startMin && nowMin <= endMin) {
+                    if (nowMin >= startMin && nowMin <= endMin - 5) {
                         obsCell.classList.add('breathing');
                     }
                 }
