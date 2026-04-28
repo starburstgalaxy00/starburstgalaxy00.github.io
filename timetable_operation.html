@@ -333,7 +333,7 @@ function loadCSV() {
                     const startMin = timeToMinutes(start);
                     const endMin = timeToMinutes(end);
 
-                    if (nowMin >= startMin && nowMin <= endMin - 5) {
+                    if (nowMin >= startMin - 1 && nowMin <= endMin - 5) {
                         obsCell.classList.add('breathing');
                     }
                 }
