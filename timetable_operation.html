@@ -7,8 +7,8 @@
     }
 
     body {
-        background-color: white;
-        color: black;
+        background-color: rgb(51, 51, 51);
+        color: white;
         overflow: hidden;
         position: absolute;
         width: 100%;
@@ -120,21 +120,28 @@
         border: 1px solid #ccc;
         padding: 8px;
         text-align: center;
-        font-size: 2.0vw;
+        font-size: 2.3vw;
     }
 
-    .timetable th {
-        background-color: #fae7aa;
+    @keyframes breathing {
+        0%   { 
+            opacity: 1;
+            text-shadow: 0 0 5px yellow, 0 0 10px yellow;
+        }
+        50%  { 
+            opacity: 0.6;
+            text-shadow: 0 0 20px yellow, 0 0 40px yellow;
+        }
+        100% { 
+            opacity: 1;
+            text-shadow: 0 0 5px yellow, 0 0 10px yellow;
+        }
     }
 
-    .timetable td:nth-child(2) {
-        background-color: #e8f5e9;
-    }
-    .timetable td:nth-child(3) {
-        background-color: #e3f2fd;
-    }
-    .timetable td:nth-child(4) {
-        background-color: #fff3e0;
+    .breathing {
+        color: yellow !important;
+        background-color: transparent !important; /* 🔥 배경 제거 */
+        animation: breathing 2s infinite;
     }
 
 </style>
@@ -183,30 +190,40 @@
 
 <script>
 
-    function setClock() {
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var weekNames = ["일", "월", "화", "수", "목", "금", "토"];
-        var weekNames_en = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        var week = weekNames[date.getDay()];
-        var week_en = weekNames_en[date.getDay()];
-        var hour = modifyNumber(date.getHours());
-        var min = modifyNumber(date.getMinutes());
-        var sec = modifyNumber(date.getSeconds());
+function setClock() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var weekNames = ["일", "월", "화", "수", "목", "금", "토"];
+    var weekNames_en = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var week = weekNames[date.getDay()];
+    var week_en = weekNames_en[date.getDay()];
+    var hour = modifyNumber(date.getHours());
+    var min = modifyNumber(date.getMinutes());
+    var sec = modifyNumber(date.getSeconds());
 
-        document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
-        document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
-    }
+    document.getElementById("date").innerHTML = year + "/" + month + "/" + day + " " + week;
+    document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
+}
 
-    function modifyNumber(time) {
-        if (parseInt(time) < 10) {
-            return "0" + time;
-        }
-        else
-            return time;
+function getNowMinutes() {
+    const now = new Date();
+    return now.getHours() * 60 + now.getMinutes();
+}
+
+function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+}
+
+function modifyNumber(time) {
+    if (parseInt(time) < 10) {
+        return "0" + time;
     }
+    else
+        return time;
+}
 
 function loadCSV() {
     Promise.all([
@@ -257,7 +274,6 @@ function loadCSV() {
         const table = document.createElement('table');
         table.classList.add('timetable');
 
-        // 헤더
         const thead = document.createElement('thead');
         const tr = document.createElement('tr');
 
@@ -271,7 +287,7 @@ function loadCSV() {
         table.appendChild(thead);
 
         const tbody = document.createElement('tbody');
-
+        const nowMin = getNowMinutes();
         let totalRows = timeMap.length;
 
         timeMap.forEach((item, index) => {
@@ -285,29 +301,47 @@ function loadCSV() {
             const row = document.createElement('tr');
 
             const timeCell = document.createElement('td');
-            const obsCell = document.createElement('td');
             const plaCell = document.createElement('td');
+            const obsCell = document.createElement('td');
 
-            // ✅ 시간
             timeCell.textContent = item.label;
 
-            // ✅ 천체투영관
-            let startTime = '';
+            // 🌟 천체투영관
             if (!pPro.includes('점검시간') && pTime) {
-                startTime = pTime.split('~')[0].trim();
-            }
-            plaCell.textContent = startTime;
+                const start = pTime.split('~')[0].trim();
+                plaCell.textContent = start;
 
-            // ✅ 관측실
-            if (oPro !== '--') {
+                const startMin = timeToMinutes(start);
+                const highlightStart = startMin - 10;
+
+                if (nowMin >= highlightStart && nowMin <= startMin) {
+                    plaCell.classList.add('breathing');
+                }
+            }
+
+            // 🌟 관측실
+            if (oPro !== '--' && oTime) {
                 obsCell.innerHTML = oTime.replace(/\[줄바꿈\]/g, '<br>');
+
+                const parts = oTime.split('~');
+                if (parts.length === 2) {
+                    const start = parts[0].trim();
+                    const end = parts[1].trim();
+
+                    const startMin = timeToMinutes(start);
+                    const endMin = timeToMinutes(end);
+
+                    if (nowMin >= startMin && nowMin <= endMin) {
+                        obsCell.classList.add('breathing');
+                    }
+                }
             }
 
             row.appendChild(timeCell);
             row.appendChild(plaCell);
             row.appendChild(obsCell);
 
-            // ✅ 전시실 (첫 행에만 생성)
+            // 🌟 전시실 병합
             if (index === 0) {
                 const exCell = document.createElement('td');
                 exCell.textContent = '상시운영';
@@ -322,15 +356,17 @@ function loadCSV() {
         container.appendChild(table);
 
     })
-    .catch(err => {
-        console.error(err);
-    });
+    .catch(err => console.error(err));
 }
 
 window.onload = function () {
     loadCSV();
     setClock();
+
     setInterval(setClock, 1000);
+
+    // 👉 1분마다 하이라이트 갱신
+    setInterval(loadCSV, 60000);
 }
 
 </script>
