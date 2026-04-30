@@ -84,7 +84,7 @@ body {
 .timetable th, .timetable td {
     text-align:center;
     padding:8px;
-    font-size:1.7vw;
+    font-size:1.5vw;
 }
 
 .timetable th {
@@ -254,6 +254,31 @@ function updateTopDisplay(planet, obs) {
         return h*60+m;
     };
 
+    let firstStart = null;
+    let lastEnd = null;
+
+    for (let key of timeMap) {
+
+        const pTime = planet[`${key-1}time`] || '';
+        const pPro  = planet[`${key-1}pro`] || '';
+
+        const oTime = obs[`${key}time`] || '';
+        const oPro  = obs[`${key}pro`] || '';
+
+        if (pTime && !pPro.includes('점검시간')) {
+            const start = toMin(pTime.split('~')[0].trim());
+            if (firstStart === null || start < firstStart) {
+                firstStart = start;
+            }
+        }
+
+        if (oTime && oPro !== '--') {
+            const end = toMin(oTime.split('~')[1].trim());
+            if (lastEnd === null || end > lastEnd) {
+                lastEnd = end;
+            }
+        }
+    }
     for(let key of timeMap){
 
         const pTime=planet[`${key-1}time`]||'';
@@ -283,7 +308,7 @@ function updateTopDisplay(planet, obs) {
             if (nowMin >= showStart && nowMin <= showEnd) {
 
                 message = `
-                    🪐 ${format(pStart)} 천체투영관 [1층]<br>
+                    🪐 천체투영관 [1층]<br>
                     <span style="font-size:4vw; opacity:0.8;">
                         (${format(showStart)} ~ ${format(showEnd)} 입장)
                     </span>
@@ -330,7 +355,35 @@ function updateTopDisplay(planet, obs) {
         }
     }
 
-    display.innerHTML = message || ' ';
+    if (!message) {
+
+        if (nowMin < firstStart) {
+            message = `
+                🌅 운영 준비 중<br>
+                <span style="font-size:4vw; opacity:0.8;">
+                    (곧 시작됩니다)
+                </span>
+            `;
+        } 
+        else if (nowMin > lastEnd) {
+            message = `
+                🌙 운영 종료<br>
+                <span style="font-size:4vw; opacity:0.8;">
+                    (내일 다시 운영됩니다)
+                </span>
+            `;
+        } 
+        else {
+            message = `
+                🌙 저녁시간<br>
+                <span style="font-size:4vw; opacity:0.8;">
+                    (운영 준비 중)
+                </span>
+            `;
+        }
+    }
+
+    display.innerHTML = message;
 }
 
 function format(m){
