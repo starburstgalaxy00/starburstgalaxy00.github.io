@@ -125,6 +125,12 @@
         font-size: 2.7vw;
     }
 
+    .timetable tbody tr:last-child td {
+    font-weight: bold;
+    color: red;
+    font-size: 2vw;
+    }
+
     @keyframes breathing {
         0%   { 
             opacity: 1;
@@ -353,6 +359,27 @@ function loadCSV() {
 
             tbody.appendChild(row);
         });
+
+        const infoRow = document.createElement('tr');
+
+        // 시간칸 (비워두기)
+        const emptyCell = document.createElement('td');
+        emptyCell.textContent = '';
+        infoRow.appendChild(emptyCell);
+
+        // 천체투영관 안내
+        const plaInfo = document.createElement('td');
+        plaInfo.innerHTML = '만 5세 이상';
+        infoRow.appendChild(plaInfo);
+
+        // 관측실 안내
+        const obsInfo = document.createElement('td');
+        obsInfo.innerHTML = '45분 입장 마감';
+        infoRow.appendChild(obsInfo);
+
+        // 전시실 칸은 rowspan 때문에 추가 ❌
+
+        tbody.appendChild(infoRow);
 
         table.appendChild(tbody);
         container.appendChild(table);
