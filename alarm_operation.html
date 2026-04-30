@@ -32,7 +32,7 @@ body {
 
 /* ===== 상단 ===== */
 .top-container {
-    flex:6;
+    flex:4;
     background:#243B53;
     color:#fff;
     display:flex;
@@ -59,8 +59,9 @@ body {
 
 /* ===== 하단 ===== */
 .bottom-container {
-    flex:4;
+    flex:6;
     display:flex;
+    flex-direction: column;
 }
 
 #timetable-container {
@@ -83,7 +84,7 @@ body {
 .timetable th, .timetable td {
     text-align:center;
     padding:8px;
-    font-size:1vw;
+    font-size:1.7vw;
 }
 
 .timetable th {
@@ -97,6 +98,15 @@ body {
 
 .timetable tbody tr:nth-child(even) {
     background:rgba(255,255,255,0.4);
+}
+
+.menu-title {
+    width:100%;
+    text-align:center;
+    font-size:2.5vw;
+    font-weight:bold;
+    padding:1vh 0;
+    background:#BCCCDC;
 }
 
 /* 닫기 */
@@ -132,6 +142,7 @@ body {
 
 <!-- 하단 -->
 <div class="bottom-container">
+    <div class="menu-title">카페메뉴판</div>
     <div id="timetable-container"></div>
 </div>
 
