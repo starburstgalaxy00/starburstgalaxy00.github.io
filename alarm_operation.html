@@ -285,74 +285,105 @@ function updateTopDisplay(planet, obs) {
 
     const now = new Date();
     const nowMin = now.getHours()*60 + now.getMinutes();
-
     const display = document.getElementById('top-display');
-    let message='';
 
-    const timeMap=[15,16,17,18,19,20,21,22];
-
-    const toMin=t=>{
-        const [h,m]=t.split(':').map(Number);
+    const toMin = t => {
+        const [h,m] = t.split(':').map(Number);
         return h*60+m;
     };
 
-    let firstStart = null;
-    let lastEnd = null;
+    const format = m => `${Math.floor(m/60)}:${(m%60).toString().padStart(2,'0')}`;
 
-    for (let key of timeMap) {
+    /* =========================
+       🔥 모든 프로그램 배열화
+    ========================= */
+    const extractPrograms = (data, type) => {
 
-        const pTime = planet[`${key-1}time`] || '';
-        const pPro  = planet[`${key-1}pro`] || '';
+        return Object.keys(data)
+            .filter(k => k.includes('time'))
+            .map(k => {
+                const key = k.replace('time','');
+                const time = data[k];
+                const pro  = data[`${key}pro`] || '';
 
-        const oTime = obs[`${key}time`] || '';
-        const oPro  = obs[`${key}pro`] || '';
+                if (!time) return null;
 
-        if (pTime && !pPro.includes('점검시간')) {
-            const start = toMin(pTime.split('~')[0].trim());
-            if (firstStart === null || start < firstStart) {
-                firstStart = start;
-            }
-        }
+                const [start,end] = time.split('~').map(s=>s.trim());
 
-        if (oTime && oPro !== '--') {
-            const end = toMin(oTime.split('~')[1].trim());
-            if (lastEnd === null || end > lastEnd) {
-                lastEnd = end;
-            }
+                return {
+                    type,
+                    start: toMin(start),
+                    end: toMin(end),
+                    pro
+                };
+            })
+            .filter(v => v !== null)
+            .sort((a,b)=>a.start - b.start);
+    };
+
+    const pList = extractPrograms(planet, 'planet');
+    const oList = extractPrograms(obs, 'obs');
+
+    /* =========================
+       🔥 전체 시간 범위
+    ========================= */
+    const allStarts = [...pList.map(v=>v.start), ...oList.map(v=>v.start)];
+    const allEnds   = [...pList.map(v=>v.end),   ...oList.map(v=>v.end)];
+
+    const firstStart = Math.min(...allStarts);
+    const lastEnd    = Math.max(...allEnds);
+
+    let message = '';
+
+    /* =========================
+       🔥 천체관측실 (우선 체크)
+    ========================= */
+    for (let o of oList) {
+
+        if (o.pro === '--') continue;
+
+        const showStart = o.start;
+        const showEnd   = o.end - 5;
+
+        if (nowMin >= showStart && nowMin <= showEnd) {
+            message = `
+                🔭 <span class="gold-breathing">천체관측실</span> [3층]<br>
+                <span style="font-size:4vw; opacity:0.8;">
+                    (${format(o.start)} ~ ${format(o.end)})
+                </span>
+                <br>
+                <span style="font-size:2vw; color:red;">
+                    45분 입장 마감
+                </span>
+            `;
+            break;
         }
     }
-    for(let key of timeMap){
 
-        const pTime=planet[`${key-1}time`]||'';
-        const pPro =planet[`${key-1}pro`]||'';
+    /* =========================
+       🔥 천체투영관
+    ========================= */
+    if (!message) {
 
-        const oTime=obs[`${key}time`]||'';
-        const oPro =obs[`${key}pro`]||'';
+        for (let i=0; i<pList.length; i++) {
 
-        let pStart,oStart,oEnd;
+            const p = pList[i];
 
-        if(pTime){
-            pStart=toMin(pTime.split('~')[0].trim());
-        }
+            if (p.pro.includes('점검시간')) continue;
 
-        if(oTime && oPro!=='--'){
-            const s=oTime.split('~');
-            oStart=toMin(s[0].trim());
-            oEnd=toMin(s[1].trim());
-        }
+            // 바로 이전 관측 찾기
+            const prevObs = oList
+                .filter(o => o.end <= p.start)
+                .sort((a,b)=>b.end - a.end)[0];
 
-        /* 천체투영관 */
-        if (!pPro.includes('점검시간') && pStart && oStart) {
+            if (!prevObs) continue;
 
-            const showStart = oStart - 40;
-            const showEnd   = pStart - 1;
+            const showStart = prevObs.end;
+            const showEnd   = p.start - 1;
 
             if (nowMin >= showStart && nowMin <= showEnd) {
-
                 message = `
-                    <span style="font-size:5vw; opacity:0.8;">
-                        🪐 <span class="gold-breathing">천체투영관 </span>[1층]<br>
-                    </span>
+                    🪐 <span class="gold-breathing">천체투영관</span> [1층]<br>
                     <span style="font-size:4vw; opacity:0.8;">
                         (${format(showStart)} ~ ${format(showEnd)} 입장)
                     </span>
@@ -364,41 +395,11 @@ function updateTopDisplay(planet, obs) {
                 break;
             }
         }
-
-        /* 관측실 */
-        if (oPro !== '--' && pStart && oEnd) {
-
-            const showStart = pStart - 1;
-            const showEnd   = oEnd - 5;
-
-            if (nowMin >= showStart && nowMin <= showEnd) {
-
-                message = `
-                    🔭 <span class="gold-breathing">천체관측실 </span>[3층]<br>
-                    <span style="font-size:4vw; opacity:0.8;">
-                        (${format(oStart)} ~ ${format(oEnd)})
-                    </span>
-                    <br>
-                    <span style="font-size:2vw; color:red;">
-                        45분 입장 마감
-                    </span>
-                `;
-                break;
-            }
-        }
-
-        /* 점검시간 */
-        if (pPro.includes('점검시간') || oPro === '--') {
-
-            message = `
-                🌙 저녁시간<br>
-                <span style="font-size:4vw; opacity:0.8;">
-                    (운영 준비 중)
-                </span>
-            `;
-        }
     }
 
+    /* =========================
+       🔥 fallback
+    ========================= */
     if (!message) {
 
         if (nowMin < firstStart) {
