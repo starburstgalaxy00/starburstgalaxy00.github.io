@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>Notice</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body {
+            background-color: black;
+            color: white;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vh;
+            height: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotate {
+            transform: rotate(-90deg);
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text {
+            font-size: 8vh;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="rotate">
+            <div class="text">
+                1500회 별음악회 진행으로<br>
+                <span style="font-size:10vw; color: yellow;">미운영</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
