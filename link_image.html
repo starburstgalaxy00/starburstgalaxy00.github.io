@@ -144,7 +144,7 @@
 
       <h2>관측대상</h2>
         <div>
-          <a href="solarcanvas.html">홍염(주관측실용)</a><br>
+          <a href="solarcanvas.html">홍염</a>
           <a href="#" onclick="showImage('images/sunspot.jpg', '흑점')">흑점</a>
         </div>
 
@@ -210,7 +210,7 @@
         const line = lines[i].trim();
         if (line) {
           const columns = line.split(","); // 첫 번째 열만 추출
-          const objectName = columns[0];
+          const objectName = columns[1];
           if (objectName) {
             objectNames.push(objectName);
           }
