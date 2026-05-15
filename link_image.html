@@ -6,7 +6,7 @@
   <title>ObservableImages</title>
   <style>
     * {
-      padding: ;
+      padding: 0.1px;
       margin: 0.1vw;
     }
 
@@ -210,19 +210,27 @@
         const line = lines[i].trim();
         if (line) {
           const columns = line.split(","); // 첫 번째 열만 추출
-          const objectName = columns[1];
-          if (objectName) {
-            objectNames.push(objectName);
+          const displayName = columns[1];
+          const objectName = columns[0];
+          if (objectName && displayName) {
+            objectNames.push({
+                displayName,
+                objectName});
           }
         }
       }
 
       // --------< 정렬 및 출력 >--------
-      objectNames.sort((a, b) => a.localeCompare(b, 'ko')); // 가나다 순으로 정렬
+      objectNames.sort((a, b) => a.displayName.localeCompare(b.displayName, 'ko')); // 가나다 순으로 정렬
 
       let output = "";
-      objectNames.forEach(objectName => {
-        output += `<a href="#" onclick="goToNextPageWithName('${objectName}')">${objectName}</a>`;
+      objectNames.forEach(item => {
+        output += `
+          <a href="#"
+            onclick="goToNextPageWithName('${item.objectName}')">
+            ${item.displayName}
+          </a>
+        `;
       });
       objectListDiv.innerHTML = output;
       // --------< 정렬 및 출력 끝 >--------
