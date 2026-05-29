@@ -298,7 +298,7 @@ function updateTopDisplay(planet, obs) {
        🔥 모든 프로그램 배열화
     ========================= */
     const extractPrograms = (data, type) => {
-
+        if (!data) return [];
         return Object.keys(data)
             .filter(k => k.includes('time'))
             .map(k => {
@@ -324,51 +324,79 @@ function updateTopDisplay(planet, obs) {
     const pList = extractPrograms(planet, 'planet');
     const oList = extractPrograms(obs, 'obs');
 
-    /* =========================
-       🔥 전체 시간 범위
-    ========================= */
-    const allStarts = [...pList.map(v=>v.start), ...oList.map(v=>v.start)];
-    const allEnds   = [...pList.map(v=>v.end),   ...oList.map(v=>v.end)];
-
-    const firstStart = Math.min(...allStarts);
-    const lastEnd    = Math.max(...allEnds);
-
     let message = '';
 
     /* =========================
-       🔥 천체관측실 (우선 체크)
+       1️⃣ [우선순위 1] 절대 시간 기점 체크
     ========================= */
-    for (let o of oList) {
+    if (nowMin < 14 * 60) { // 14시 이전
+        message = `
+            🌅 운영 준비 중<br>
+            <span style="font-size:4vw; opacity:0.8;">
+                (곧 시작됩니다)
+            </span>
+        `;
+    } 
+    else if (nowMin >= 21 * 60 + 45) { // 21시 45분 이후
+        message = `
+            🌙 운영 종료<br>
+            <span style="font-size:4vw; opacity:0.8;">
+                (내일 다시 운영됩니다)
+            </span>
+        `;
+    }
 
-        if (o.pro === '--') continue;
+    /* =========================
+       2️⃣ [우선순위 2] 저녁시간 (점검시간 / --) 체크
+    ========================= */
+    if (!message) {
+        // 천체관측실 프로그램 중 '--'에 해당하는 시간대인지 확인
+        const isObsBreak = oList.some(o => o.pro === '--' && nowMin >= o.start && nowMin <= o.end);
+        // 천체투영관 프로그램 중 '점검시간'이 포함된 시간대인지 확인
+        const isPlanetBreak = pList.some(p => p.pro.includes('점검시간') && nowMin >= p.start && nowMin <= p.end);
 
-        const showStart = o.start;
-        const showEnd   = o.end - 5;
-
-        if (nowMin >= showStart && nowMin <= showEnd) {
+        if (isObsBreak || isPlanetBreak) {
             message = `
-                🔭 <span class="gold-breathing">천체관측실</span> [3층]<br>
+                🌙 저녁시간<br>
                 <span style="font-size:4vw; opacity:0.8;">
-                    (${format(o.start)} ~ ${format(o.end)})
-                </span>
-                <br>
-                <span style="font-size:2vw; color:red;">
-                    45분 입장 마감
+                    (운영 준비 중)
                 </span>
             `;
-            break;
         }
     }
 
     /* =========================
-       🔥 천체투영관
+       3️⃣ [우선순위 3] 천체관측실 운영 시간 체크
     ========================= */
     if (!message) {
+        for (let o of oList) {
+            if (o.pro === '--') continue;
 
+            const showStart = o.start;
+            const showEnd   = o.end - 5; // 45분 입장 마감 반영
+
+            if (nowMin >= showStart && nowMin <= showEnd) {
+                message = `
+                    🔭 <span class="gold-breathing">천체관측실</span> [3층]<br>
+                    <span style="font-size:4vw; opacity:0.8;">
+                        (${format(o.start)} ~ ${format(o.end)})
+                    </span>
+                    <br>
+                    <span style="font-size:2vw; color:red;">
+                        45분 입장 마감
+                    </span>
+                `;
+                break;
+            }
+        }
+    }
+
+    /* =========================
+       4️⃣ [우선순위 4] 천체투영관 입장 시간 체크
+    ========================= */
+    if (!message) {
         for (let i=0; i<pList.length; i++) {
-
             const p = pList[i];
-
             if (p.pro.includes('점검시간')) continue;
 
             // 바로 이전 관측 찾기
@@ -398,34 +426,15 @@ function updateTopDisplay(planet, obs) {
     }
 
     /* =========================
-       🔥 fallback
+       5️⃣ [우선순위 5] 기본 Fallback (그 외 모든 시간)
     ========================= */
     if (!message) {
-
-        if (nowMin < firstStart) {
-            message = `
-                🌅 운영 준비 중<br>
-                <span style="font-size:4vw; opacity:0.8;">
-                    (곧 시작됩니다)
-                </span>
-            `;
-        } 
-        else if (nowMin > lastEnd) {
-            message = `
-                🌙 운영 종료<br>
-                <span style="font-size:4vw; opacity:0.8;">
-                    (내일 다시 운영됩니다)
-                </span>
-            `;
-        } 
-        else {
-            message = `
-                🌙 저녁시간<br>
-                <span style="font-size:4vw; opacity:0.8;">
-                    (운영 준비 중)
-                </span>
-            `;
-        }
+        message = `
+            🏢 <span class="gold-breathing">전시실</span> [2층]<br>
+            <span style="font-size:4vw; opacity:0.8;">
+                (자유 관람 가능)
+            </span>
+        `;
     }
 
     display.innerHTML = message;
