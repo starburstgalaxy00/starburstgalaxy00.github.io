@@ -1,6 +1,6 @@
 ﻿object_name,catalogue,classification,location,distance,apparent_magnitude,feature,image,photo_data1,photo_data2
 M15,M15,구상성단(Globular Cluster),페가수스자리(Pegasus),33600광년(ly),6.2,,,,
-M39,M39,산개성단(Open Cluster),백조자리(Cygnus),1010광년(ly),4.6,30여 개의 별들이 만든 한여름밤의 크리스마스트리,M39.jpg,윤범근,대전시민천문대
+M39,M39,산개성단(Open Cluster),백조자리(Cygnus),1010광년(ly),4.6,30여 개의 별들이 만든 한여름밤의 크리스마스트리,M39.jpg,윤범근,
 고리성운,M57,행성상성운(Planetary Nebula),거문고자리(Lyra),2300광년(ly),9,날씨가 매우 좋은 날 고리 형태로 관측되는 성운,M57.jpg,권홍주,대전시민천문대
 금성,Venus,행성(Planet),태양계 2번째 행성,0.723AU,-4.6 ~ -2.9 (거리에 따른 변화),어둠을 가장 먼저 밀어내는 눈부신 새벽의 전령이자\n 황혼의 끝자락을 지키는 아련한 등불인 [h]금성[h]은\n 고독한 어둠 속에서도 결코 바래지 않는 \n영롱한 빛으로 하늘의 가장 고귀한 자리를 지켜냅니다.,venus.jpg,권홍주,대전시민천문대
 데네브,Deneb,항성(Star) / 청색초거성(Blue Supergiant),백조자리(Cygnus),2600광년(ly),1.2,1등성 중에 먼 거리임에도 밝게 관측되는 청색초거성,,,
