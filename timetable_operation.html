@@ -125,6 +125,11 @@
         font-size: 2.4vw;
     }
 
+    /* 영어 부분만 글자 크기 줄이기 */
+    .timetable th .english {
+        font-size: 2vw;
+    }
+
     .timetable tbody tr:last-child td {
     font-weight: bold;
     color: red;
@@ -285,7 +290,8 @@ function loadCSV() {
         const thead = document.createElement('thead');
         const tr = document.createElement('tr');
 
-        ['시간<br>(Time)', '천체투영관<br>(Planetarium)<br>[1층]<br>(1Floor)', '관측실<br>(Observation)<br>[3층]<br>(3Floor)', '전시실<br>(Exhibition)<br>[2층]<br>(2Floor)'].forEach(h => {
+        ['시간<br><span class="english">(Time)</span>', '천체투영관<br><span class="english">(Planetarium)</span><br>[1층]<span class="english">(1Floor)</span>',
+         '관측실<br><span class="english">(Observation)</span><br>[3층]<span class="english">(3Floor)</span>', '전시실<br><span class="english">(Exhibition)</span><br>[2층]<span class="english">(2Floor)</span>'].forEach(h => {
             const th = document.createElement('th');
             th.innerHTML = h;
             tr.appendChild(th);
