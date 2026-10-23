@@ -290,8 +290,8 @@ function loadCSV() {
         const thead = document.createElement('thead');
         const tr = document.createElement('tr');
 
-        ['시간<br><span class="english">(Time)</span>', '천체투영관<br><span class="english">(Planetarium)</span><br>[1층]<span class="english">(1Floor)</span>',
-         '관측실<br><span class="english">(Observation)</span><br>[3층]<span class="english">(3Floor)</span>', '전시실<br><span class="english">(Exhibition)</span><br>[2층]<span class="english">(2Floor)</span>'].forEach(h => {
+        ['시간<br><span class="english">(Time)</span>', '천체투영관<br><span class="english">(Planetarium)</span><br><span class="english">[1Floor]</span>',
+         '관측실<br><span class="english">(Observation)</span><br><span class="english">[3Floor]</span>', '전시실<br><span class="english">(Exhibition)</span><br><span class="english">[2Floor]</span>'].forEach(h => {
             const th = document.createElement('th');
             th.innerHTML = h;
             tr.appendChild(th);
