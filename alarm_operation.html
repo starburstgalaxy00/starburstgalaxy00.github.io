@@ -347,10 +347,10 @@ function updateTopDisplay(planet, obs) {
     }
 
     /* =========================
-       2️⃣ [우선순위 2] 저녁시간 (점검시간 / --) 체크
+       2️⃣ [우선순위 2] 저녁시간 (mainobstable.csv의 '--' 항목만 단독 참고)
     ========================= */
     if (!message) {
-        // 천체관측실 프로그램 중 '--'에 해당하는 시간대인지 확인
+        // 천체관측실 프로그램 중 'pro'가 '--'인 시간대인지 확인
         const isObsBreak = oList.some(o => o.pro === '--' && nowMin >= o.start && nowMin <= o.end);
         // 천체투영관 프로그램 중 '점검시간'이 포함된 시간대인지 확인
         const isPlanetBreak = pList.some(p => p.pro.includes('점검시간') && nowMin >= p.start && nowMin <= p.end);
@@ -438,10 +438,6 @@ function updateTopDisplay(planet, obs) {
     }
 
     display.innerHTML = message;
-}
-
-function format(m){
-    return `${Math.floor(m/60)}:${(m%60).toString().padStart(2,'0')}`;
 }
 
 /* =========================
