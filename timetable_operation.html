@@ -115,14 +115,19 @@
         border: 1px solid #ccc;
         margin-top: px;
         width: 95vh;
-        height: 70vw;
+        height: 80vw;
     }
 
     .timetable th, .timetable td {
         border: 1px solid #ccc;
-        padding: 8px;
+        padding: 10px;
         text-align: center;
-        font-size: 2.7vw;
+        font-size: 2.4vw;
+    }
+
+    /* 영어 부분만 글자 크기 줄이기 */
+    .timetable th .english {
+        font-size: 2vw;
     }
 
     .timetable tbody tr:last-child td {
@@ -269,14 +274,14 @@ function loadCSV() {
         }
 
         const timeMap = [
-            { label: "2시", key: 15 },
-            { label: "3시", key: 16 },
-            { label: "4시", key: 17 },
-            { label: "5시", key: 18 },
-            { label: "6시", key: 19 },
-            { label: "7시", key: 20 },
-            { label: "8시", key: 21 },
-            { label: "9시", key: 22 }
+            { label: "14시", key: 15 },
+            { label: "15시", key: 16 },
+            { label: "16시", key: 17 },
+            { label: "17시", key: 18 },
+            { label: "18시", key: 19 },
+            { label: "19시", key: 20 },
+            { label: "20시", key: 21 },
+            { label: "21시", key: 22 }
         ];
 
         const table = document.createElement('table');
@@ -285,7 +290,8 @@ function loadCSV() {
         const thead = document.createElement('thead');
         const tr = document.createElement('tr');
 
-        ['시간', '천체투영관<br>[1층]', '관측실<br>[3층]', '전시실<br>[2층]'].forEach(h => {
+        ['시간<br><span class="english">(Time)</span>', '천체투영관<br><span class="english">(Planetarium)</span><br><span class="english">[1Floor]</span>',
+         '관측실<br><span class="english">(Observation)</span><br><span class="english">[3Floor]</span>', '전시실<br><span class="english">(Exhibition)</span><br><span class="english">[2Floor]</span>'].forEach(h => {
             const th = document.createElement('th');
             th.innerHTML = h;
             tr.appendChild(th);
